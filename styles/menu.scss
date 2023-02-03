@@ -1,0 +1,54 @@
+.menu {
+  /*   height: 100%; */
+  display: flex;
+  flex-flow: column;
+  width: min-content;
+  /* border: red 1px solid; */
+
+  /*   justify-content: center; */
+}
+
+.about {
+  /*   display: none; */
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  font-size: 0.8rem;
+  text-align: justify;
+}
+
+.about-title {
+  font-family: Munken;
+  font-size: 1.2rem;
+  border-bottom: 1px solid white;
+}
+
+.utilities {
+  display: flex;
+
+  align-items: center;
+}
+
+.insta99 {
+  /*   height: 1.8rem; */
+  position: relative;
+
+  img {
+    height: 40px;
+  }
+}
+
+.menu-item {
+  display: block;
+  /* display: none; */
+  font-size: 4rem;
+
+  color: white;
+  transition: 1s;
+  -webkit-text-stroke-color: transparent;
+
+  &.active {
+    color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+  }
+}

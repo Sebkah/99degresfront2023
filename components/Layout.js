@@ -26,19 +26,29 @@ const Layout = ({ children }) => {
       <div className="container">
         <header>
           <Title />
-          <LanguageSwitch />
+          <div className="utilities">
+            <LanguageSwitch />
+            <a
+              className="insta99"
+              href="https://www.instagram.com/collectif99degres/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src="/icons/insta.svg" alt="" />
+            </a>
+          </div>
 
           <Menu>
             {/*   <MenuItem name={['about', 'à propos']} /> */}
             <MenuItem name={['directors', 'réalisateurs']} />
             <MenuItem name={['movies', 'films']} />
           </Menu>
-          <About />
+          {<About />}
         </header>
-        <main className="page-container">{children}</main>
+        {children}
       </div>
 
-      {hasWindow && (
+      {hasWindow && false && (
         <ReactPlayer
           className="fullscreen-video"
           width="100%"
