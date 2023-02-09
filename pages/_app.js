@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import dynamic from 'next/dynamic';
 
 function MyApp({ Component, pageProps, data }) {
-  console.log(data);
+  /*   console.log(data); */
   const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
   return (
     <Context>

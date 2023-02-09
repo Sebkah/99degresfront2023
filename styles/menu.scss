@@ -1,5 +1,7 @@
 .menu {
   /*   height: 100%; */
+  position: relative;
+  z-index: 20;
   display: flex;
   flex-flow: column;
   width: min-content;
@@ -23,9 +25,19 @@
 }
 
 .utilities {
+  position: fixed;
+  right: 0;
+  width: min-content;
   display: flex;
 
+  z-index: 30;
+
   align-items: center;
+  justify-content: space-between;
+}
+
+.menu-container {
+  width: min-content;
 }
 
 .insta99 {

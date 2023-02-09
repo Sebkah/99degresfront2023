@@ -8,9 +8,37 @@ import MenuItem from '../components/navigation/MenuItem';
 
 import About from '../components/navigation/About';
 
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { useAppContext } from '../context/context';
+
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const { language, setLanguage } = useAppContext();
-  return <div className=""></div>;
+
+  const router = useRouter();
+  const isHomePage = router.pathname == '/';
+  return (
+    <header>
+      <div className="menu-container">
+        <AnimatePresence>
+          {isHomePage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <Title />
+              <Menu>
+                <MenuItem name={['directors', 'réalisateurs']} />
+                <MenuItem name={['movies', 'films']} />
+              </Menu>
+              <About />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </header>
+  );
 }

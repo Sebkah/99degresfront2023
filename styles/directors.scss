@@ -1,0 +1,42 @@
+.directors-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  height: min-content;
+
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 20px 0;
+}
+
+.director {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  padding: 5px 0;
+
+  cursor: pointer;
+
+  .name {
+  }
+  .surname {
+    font-family: Stanley;
+    font-size: 1.4rem;
+    color: rgb(46, 36, 246);
+    transform: translateX(15px);
+  }
+}
+
+.director-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .image {
+    margin: 30px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
