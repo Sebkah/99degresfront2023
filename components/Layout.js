@@ -19,6 +19,16 @@ import { useRouter } from 'next/router';
 
 const Layout = ({ children }) => {
   const [hasWindow, setHasWindow] = useState(false);
+  const [videoCounter, setCounter] = useState(0);
+
+  const videosUrl = [
+    'https://youtu.be/AIb3gj329k',
+
+    'https://youtu.be/q1uToY1uq1I',
+    /* 'https://youtu.be/tACFOmmVIKY', */
+
+    'https://youtu.be/O7tgF0b6uLE',
+  ];
 
   const player = useRef(null);
   const router = useRouter();
@@ -27,6 +37,16 @@ const Layout = ({ children }) => {
       setHasWindow(true);
     }
   }, []);
+
+  useEffect(() => {
+    const counter = videoCounter + 1;
+    if (router.pathname != '/') return;
+    if (counter >= videosUrl.length) {
+      setCounter(0);
+    } else {
+      setCounter((c) => c + 1);
+    }
+  }, [router.pathname]);
 
   const isHomePage = router.pathname == '/';
   /* console.log(isHomePage); */
@@ -42,6 +62,14 @@ const Layout = ({ children }) => {
           rel="noreferrer"
         >
           <img src="/icons/insta.svg" alt="" />
+        </a>
+        <a
+          className="insta99"
+          href="https://www.instagram.com/collectif99degres/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img src="/icons/mail.svg" alt="" />
         </a>
       </div>
       {children}
@@ -70,7 +98,8 @@ const Layout = ({ children }) => {
                 },
               },
             }}
-            url="https://www.youtube.com/watch?v=-AIb3gj329k"
+            /*    url="https://www.youtube.com/watch?v=-AIb3gj329k" */
+            url={videosUrl[videoCounter]}
           />
         </div>
       )}

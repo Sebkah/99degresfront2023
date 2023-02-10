@@ -33,8 +33,9 @@ export default function Home() {
               <Menu>
                 <MenuItem name={['directors', 'réalisateurs']} />
                 <MenuItem name={['movies', 'films']} />
+                <MenuItem name={['about', 'à propos']} />
               </Menu>
-              <About />
+              {/* <About /> */}
             </motion.div>
           )}
         </AnimatePresence>

@@ -11,13 +11,15 @@ const Blackbars = () => {
   const topY = useMotionValue(0);
   const bottomY = useMotionValue(0);
 
+  const anim = { duration: 1 };
+
   useEffect(() => {
     if (router.pathname == '/') {
-      animate(topY, 0);
-      animate(bottomY, 0);
+      animate(topY, 0, anim);
+      animate(bottomY, 0, anim);
     } else {
-      animate(topY, 400);
-      animate(bottomY, -400);
+      animate(topY, 800, anim);
+      animate(bottomY, -800, anim);
     }
   }, [router.pathname]);
 
