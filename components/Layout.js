@@ -22,12 +22,12 @@ const Layout = ({ children }) => {
   const [videoCounter, setCounter] = useState(0);
 
   const videosUrl = [
-    'https://youtu.be/AIb3gj329k',
+    'https://youtu.be/-AIb3gj329k',
 
-    'https://youtu.be/q1uToY1uq1I',
+    /* 'https://youtu.be/q1uToY1uq1I', */
     /* 'https://youtu.be/tACFOmmVIKY', */
 
-    'https://youtu.be/O7tgF0b6uLE',
+    /* 'https://youtu.be/O7tgF0b6uLE', */
   ];
 
   const player = useRef(null);
@@ -87,7 +87,7 @@ const Layout = ({ children }) => {
             ref={player}
             onProgress={({ playedSeconds }) => {
               if (playedSeconds > player.current.getDuration() - 50)
-                player.current.seekTo(0);
+                player.current.seekTo(10);
             }}
             config={{
               youtube: {
