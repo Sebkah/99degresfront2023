@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.3",
     "@next/font": "^13.1.1",
+    "colorthief": "^2.4.0",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "framer-motion": "^9.0.1",

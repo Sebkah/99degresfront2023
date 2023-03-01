@@ -17,7 +17,9 @@ const DirectorPanel = ({
   setIndexFeatured,
   indexFeatured,
   index,
+  color,
 }) => {
+  console.log(color);
   const { Nom, image, descEng, descFr } = director;
 
   const [name, surname] = Nom.split(' ');
@@ -46,6 +48,12 @@ const DirectorPanel = ({
     zIndex: index * 100,
   };
 
+  const palette = 9;
+
+  const colorStyle = color
+    ? `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `
+    : 'white';
+
   return (
     <motion.div
       className="director-panel"
@@ -62,10 +70,11 @@ const DirectorPanel = ({
           console.log(director);
         }}
         className="name-container"
-        $
       >
-        <div className="surname">{surname}</div>
-        <div className="name"> {name}</div>
+        <div className="surname" style={{ color: colorStyle }}>
+          {surname}
+        </div>
+        <div className="name">{name}</div>
       </motion.div>
 
       {/* CONTENT */}
@@ -78,7 +87,9 @@ const DirectorPanel = ({
           {director.movies.map((movie) => {
             if (!image.formats.medium.url) console.log(title);
 
-            return <DirectorMovie movie={movie} />;
+            return (
+              <DirectorMovie color={color} key={movie.title} movie={movie} />
+            );
           })}
         </div>
         <div

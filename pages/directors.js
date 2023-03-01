@@ -4,20 +4,51 @@ import PageTitle from '../components/page/PageTitle';
 
 import { API_URL } from '../config';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Director from '../components/directors/Director';
 import DirectorPanel from '../components/directors/DirectorPanel';
 
+import ColorThief from '../node_modules/colorthief/dist/color-thief.mjs';
+
 const directors = ({ directors }) => {
   const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
+  const dummy = useRef([]);
+  /* const colors = useRef([]); */
 
-  /* console.log(directors); */
+  const [colors, setColors] = useState([]);
+
+  useEffect(() => {
+    console.log(dummy.current);
+    const colorthief = new ColorThief();
+
+    for (let index = 0; index < dummy.current.length; index++) {
+      const element = dummy.current[index];
+      /* const color = colorthief.getColor(element); */
+      const color = colorthief.getPalette(element);
+      setColors((c) => [...c, color]);
+      /* console.log(color); */
+    }
+  }, [dummy.current]);
+
   return (
     <div className="page-container">
+      <div className="dummyImage" style={{ display: 'none' }}>
+        {directors.map(({ image }, index) => {
+          return (
+            <img
+              key={index}
+              ref={(element) => dummy.current.push(element)}
+              crossOrigin="anonymous"
+              src={image.formats.thumbnail.url}
+              alt=""
+            />
+          );
+        })}
+      </div>
       <PageTitle en="directors" fr="réalisateurs" />
 
       {/*    <div
@@ -41,6 +72,8 @@ const directors = ({ directors }) => {
             {directors.map((director, index) => {
               return (
                 <DirectorPanel
+                  color={colors[index]}
+                  key={director.Nom}
                   director={director}
                   setFeatured={setFeatured}
                   featured={featured}
