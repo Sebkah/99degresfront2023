@@ -8,45 +8,46 @@ import { useState } from 'react';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
+import Director from '../components/directors/Director';
+import DirectorPanel from '../components/directors/DirectorPanel';
+
 const directors = ({ directors }) => {
   const [featured, setFeatured] = useState(null);
+  const [indexFeatured, setIndexFeatured] = useState(null);
 
-  console.log(directors);
+  /* console.log(directors); */
   return (
     <div className="page-container">
       <PageTitle en="directors" fr="réalisateurs" />
 
+      <div
+        className="director-back"
+        onClick={() => {
+          console.log('baaack');
+          setFeatured(null);
+        }}
+      >
+        ////Retour
+      </div>
+
       <AnimatePresence>
-        {featured == null && true && (
+        {true && (
           <motion.div
             className="directors-grid"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {directors.map((director) => {
-              const { Nom, image } = director;
-              const [name, surname] = Nom.split(' ');
+            {directors.map((director, index) => {
               return (
-                <div
-                  className="director"
-                  onClick={() => {
-                    setFeatured(director);
-                  }}
-                  key={Nom}
-                >
-                  <div
-                    className="director-background"
-                    style={{
-                      backgroundImage: `url(${image.formats.large.url})`,
-                    }}
-                  ></div>
-
-                  <div className="name-container">
-                    <div className="surname">{surname}</div>
-                    <div className="name"> {name}</div>
-                  </div>
-                </div>
+                <DirectorPanel
+                  director={director}
+                  setFeatured={setFeatured}
+                  featured={featured}
+                  setIndexFeatured={setIndexFeatured}
+                  indexFeatured={indexFeatured}
+                  index={index}
+                ></DirectorPanel>
               );
             })}
           </motion.div>

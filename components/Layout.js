@@ -76,7 +76,7 @@ const Layout = ({ children }) => {
       {hasWindow && true && (
         <div className="video">
           <Blackbars></Blackbars>
-          <ReactPlayer
+          {/*     <ReactPlayer
             className="fullscreen-video"
             width="100%"
             height="100%"
@@ -98,9 +98,9 @@ const Layout = ({ children }) => {
                 },
               },
             }}
-            /*    url="https://www.youtube.com/watch?v=-AIb3gj329k" */
+          
             url={videosUrl[videoCounter]}
-          />
+          /> */}
         </div>
       )}
     </div>
