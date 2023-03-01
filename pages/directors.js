@@ -20,7 +20,7 @@ const directors = ({ directors }) => {
     <div className="page-container">
       <PageTitle en="directors" fr="réalisateurs" />
 
-      <div
+      {/*    <div
         className="director-back"
         onClick={() => {
           console.log('baaack');
@@ -28,7 +28,7 @@ const directors = ({ directors }) => {
         }}
       >
         ////Retour
-      </div>
+      </div> */}
 
       <AnimatePresence>
         {true && (
@@ -53,12 +53,12 @@ const directors = ({ directors }) => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="director-featured">
+      {/*  <div className="director-featured">
         <div className="image">
           {featured && <img src={featured.image.formats.large.url} alt="" />}
         </div>
         <div className="desc"></div>
-      </div>
+      </div> */}
     </div>
   );
 };

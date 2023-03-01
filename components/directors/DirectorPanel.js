@@ -1,3 +1,4 @@
+import { DirectorMovie } from './DirectorMovie';
 import React from 'react';
 import { useEffect } from 'react';
 import {
@@ -7,6 +8,8 @@ import {
   animate,
 } from 'framer-motion';
 
+import DirectorBio from './DirectorBio';
+
 const DirectorPanel = ({
   director,
   setFeatured,
@@ -15,7 +18,7 @@ const DirectorPanel = ({
   indexFeatured,
   index,
 }) => {
-  const { Nom, image } = director;
+  const { Nom, image, descEng, descFr } = director;
 
   const [name, surname] = Nom.split(' ');
 
@@ -31,6 +34,10 @@ const DirectorPanel = ({
     }
   }
 
+  let zIndex = index * 100;
+
+  if (featured) zIndex *= 1000;
+
   /* const backgroundSize = isFeatured ? 'contain' : 'contain'; */
   const backgroundSize = 'contain';
 
@@ -40,12 +47,19 @@ const DirectorPanel = ({
   };
 
   return (
-    <motion.div className="director-panel" key={Nom} layout style={style}>
+    <motion.div
+      className="director-panel"
+      key={Nom}
+      layout
+      style={style}
+      transition={{ duration: 4 }}
+    >
+      {/* NAME */}
       <motion.div
         onClick={() => {
           setFeatured(director);
           setIndexFeatured(index);
-          console.log(director.Nom);
+          console.log(director);
         }}
         className="name-container"
         $
@@ -54,15 +68,43 @@ const DirectorPanel = ({
         <div className="name"> {name}</div>
       </motion.div>
 
+      {/* CONTENT */}
+
+      <div className="director-content">
+        {/*  <div className="empty"></div> */}
+        <DirectorBio en={descEng} fr={descFr}></DirectorBio>
+        {/*    <div className="director-bio">{director.descFr}</div> */}
+        <div className="director-movies">
+          {director.movies.map((movie) => {
+            if (!image.formats.medium.url) console.log(title);
+
+            return <DirectorMovie movie={movie} />;
+          })}
+        </div>
+        <div
+          className="director-back"
+          onClick={() => {
+            console.log('baaack');
+            setFeatured(null);
+          }}
+        >
+          X
+        </div>
+      </div>
+
+      {/* BACKGROUND */}
       <motion.div
         className="director-background"
         layout
         style={{
+          left: isFeatured ? null : 0,
+          right: isFeatured ? 0 : null,
           backgroundImage: `url(${image.formats.large.url})`,
-          backgroundSize,
-          backgroundPosition: isFeatured ? '0 50%' : null,
+          backgroundSize: 'cover',
+          backgroundPosition: isFeatured ? '50% 50%' : null,
           filter: isFeatured ? 'grayscale(0%)' : null,
         }}
+        transition={{ duration: 4 }}
       ></motion.div>
     </motion.div>
   );
