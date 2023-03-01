@@ -52,7 +52,7 @@ const DirectorPanel = ({
       key={Nom}
       layout
       style={style}
-      transition={{ duration: 4 }}
+      /* transition={{ duration: 4 }} */
     >
       {/* NAME */}
       <motion.div
@@ -104,7 +104,7 @@ const DirectorPanel = ({
           backgroundPosition: isFeatured ? '50% 50%' : null,
           filter: isFeatured ? 'grayscale(0%)' : null,
         }}
-        transition={{ duration: 4 }}
+        /*    transition={{ duration: 4 }} */
       ></motion.div>
     </motion.div>
   );
