@@ -19,7 +19,7 @@ const DirectorPanel = ({
   index,
   color,
 }) => {
-  console.log(color);
+  /*  console.log(color); */
   const { Nom, image, descEng, descFr } = director;
 
   const [name, surname] = Nom.split(' ');
@@ -48,7 +48,7 @@ const DirectorPanel = ({
     zIndex: index * 100,
   };
 
-  const palette = 9;
+  const palette = 1;
 
   const colorStyle = color
     ? `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `
@@ -67,7 +67,7 @@ const DirectorPanel = ({
         onClick={() => {
           setFeatured(director);
           setIndexFeatured(index);
-          console.log(director);
+          /*  console.log(director); */
         }}
         className="name-container"
       >
@@ -80,9 +80,8 @@ const DirectorPanel = ({
       {/* CONTENT */}
 
       <div className="director-content">
-        {/*  <div className="empty"></div> */}
         <DirectorBio en={descEng} fr={descFr}></DirectorBio>
-        {/*    <div className="director-bio">{director.descFr}</div> */}
+
         <div className="director-movies">
           {director.movies.map((movie) => {
             if (!image.formats.medium.url) console.log(title);

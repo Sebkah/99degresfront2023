@@ -16,23 +16,8 @@ import ColorThief from '../node_modules/colorthief/dist/color-thief.mjs';
 const directors = ({ directors }) => {
   const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
-  const dummy = useRef([]);
-  /* const colors = useRef([]); */
 
   const [colors, setColors] = useState([]);
-
-  useEffect(() => {
-    console.log(dummy.current);
-    const colorthief = new ColorThief();
-
-    for (let index = 0; index < dummy.current.length; index++) {
-      const element = dummy.current[index];
-      /* const color = colorthief.getColor(element); */
-      const color = colorthief.getPalette(element);
-      setColors((c) => [...c, color]);
-      /* console.log(color); */
-    }
-  }, [dummy.current]);
 
   return (
     <div className="page-container">
@@ -41,7 +26,12 @@ const directors = ({ directors }) => {
           return (
             <img
               key={index}
-              ref={(element) => dummy.current.push(element)}
+              onLoad={(e) => {
+                const image = e.target;
+                const colorthief = new ColorThief();
+                const color = colorthief.getPalette(image);
+                setColors((c) => [...c, color]);
+              }}
               crossOrigin="anonymous"
               src={image.formats.thumbnail.url}
               alt=""
