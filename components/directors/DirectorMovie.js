@@ -6,19 +6,19 @@ import {
   animate,
 } from 'framer-motion';
 
-export function DirectorMovie({ movie, color, paletteSelector }) {
+const brghtnss = 1;
+
+export function DirectorMovie({ movie, color, paletteSelector, titleColor }) {
   const { title, image, id } = movie;
 
   const grayscale = useMotionValue(1);
-  const brightness = useMotionValue(0.7);
+  const brightness = useMotionValue(brghtnss);
 
   const filter = useMotionTemplate`grayscale(${grayscale}) brightness(${brightness})`;
 
   /*   const palette = 0; */
 
-  const colorStyle = color
-    ? `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `
-    : 'white';
+  const colorStyle = `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `;
 
   return (
     <div key={id} className="director-movie">
@@ -42,10 +42,12 @@ export function DirectorMovie({ movie, color, paletteSelector }) {
           /*    animate(grayscale, 1);
           animate(brightness, 1.5); */
           grayscale.set(1);
-          brightness.set(0.7);
+          brightness.set(brghtnss);
         }}
       ></motion.div>
-      <div className="movie-title">{title}</div>
+      <div className="movie-title" style={{ backgroundColor: titleColor }}>
+        {title}
+      </div>
       <motion.div
         style={{
           filter: filter,

@@ -22,32 +22,27 @@ const directors = ({ directors, palettes }) => {
   return (
     <div className="page-container">
       <PageTitle en="directors" fr="réalisateurs" />
-
-      <AnimatePresence>
-        {true && (
-          <motion.div
-            className="directors-grid"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {directors.map((director, index) => {
-              return (
-                <DirectorPanel
-                  color={palettes[index]}
-                  key={director.Nom}
-                  director={director}
-                  setFeatured={setFeatured}
-                  featured={featured}
-                  setIndexFeatured={setIndexFeatured}
-                  indexFeatured={indexFeatured}
-                  index={index}
-                ></DirectorPanel>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        className="directors-grid"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        {directors.map((director, index) => {
+          return (
+            <DirectorPanel
+              color={palettes[index]}
+              key={director.Nom}
+              director={director}
+              setFeatured={setFeatured}
+              featured={featured}
+              setIndexFeatured={setIndexFeatured}
+              indexFeatured={indexFeatured}
+              index={index}
+            ></DirectorPanel>
+          );
+        })}
+      </motion.div>
     </div>
   );
 };

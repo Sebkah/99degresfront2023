@@ -1,9 +1,9 @@
 .page-container {
   position: relative;
-  /*  display: grid; */
+  display: grid;
   width: 100%;
-  height: 100%;
-  position: relative;
+  height: 100vh;
+
   overflow: hidden;
   grid-template-rows: min-content 1fr;
   /*   width: 100%;
@@ -14,6 +14,7 @@
 
 .page-title {
   position: absolute;
+  position: relative;
   display: flex;
   font-size: 9rem;
   line-height: 10rem;

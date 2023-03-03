@@ -12,6 +12,8 @@ import {
 
 import DirectorBio from './DirectorBio';
 
+import { useAppContext } from '../../context/context';
+
 const DirectorPanel = ({
   director,
   setFeatured,
@@ -21,7 +23,8 @@ const DirectorPanel = ({
   index,
   color,
 }) => {
-  /*  console.log(color); */
+  const { language } = useAppContext();
+
   const { Nom, image, descEng, descFr } = director;
 
   const [name, surname] = Nom.split(' ');
@@ -38,7 +41,7 @@ const DirectorPanel = ({
     }
   }
 
-  const palette = 0;
+  const palette = 9;
 
   const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
 
@@ -72,18 +75,24 @@ const DirectorPanel = ({
         <DirectorBio en={descEng} fr={descFr}></DirectorBio>
 
         <div className="director-movies">
-          {director.movies.map((movie, index) => {
-            if (!image.formats.medium.url) console.log(title);
+          <h1 style={{ backgroundColor: colorStyle }}>
+            {language == 'en' ? 'movies' : 'films'}
+          </h1>
+          <div className="director-movies-grid">
+            {director.movies.map((movie, index) => {
+              if (!image.formats.medium.url) console.log(title);
 
-            return (
-              <DirectorMovie
-                color={color}
-                key={movie.title}
-                paletteSelector={1}
-                movie={movie}
-              />
-            );
-          })}
+              return (
+                <DirectorMovie
+                  color={color}
+                  key={movie.title}
+                  paletteSelector={palette}
+                  movie={movie}
+                  titleColor={'black'}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -100,7 +109,15 @@ const DirectorPanel = ({
           filter: isFeatured ? 'grayscale(0%)' : null,
         }}
         /*  transition={{ duration: 4 }} */
-      ></motion.div>
+      >
+        {
+          <motion.div
+            className="background-color-overlay"
+            animate={{ opacity: isFeatured ? 0.5 : 0 }}
+            style={{ backgroundColor: colorStyle }}
+          ></motion.div>
+        }
+      </motion.div>
     </motion.div>
   );
 };
