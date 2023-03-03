@@ -11,45 +11,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Director from '../components/directors/Director';
 import DirectorPanel from '../components/directors/DirectorPanel';
 
-import ColorThief from '../node_modules/colorthief/dist/color-thief.mjs';
-
-const directors = ({ directors }) => {
+const directors = ({ directors, palettes }) => {
   const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
 
-  const [colors, setColors] = useState([]);
+  useEffect(() => {
+    console.log(featured);
+  }, [featured]);
 
   return (
     <div className="page-container">
-      <div className="dummyImage" style={{ display: 'none' }}>
-        {directors.map(({ image }, index) => {
-          return (
-            <img
-              key={index}
-              onLoad={(e) => {
-                const image = e.target;
-                const colorthief = new ColorThief();
-                const color = colorthief.getPalette(image);
-                setColors((c) => [...c, color]);
-              }}
-              crossOrigin="anonymous"
-              src={image.formats.thumbnail.url}
-              alt=""
-            />
-          );
-        })}
-      </div>
       <PageTitle en="directors" fr="réalisateurs" />
-
-      {/*    <div
-        className="director-back"
-        onClick={() => {
-          console.log('baaack');
-          setFeatured(null);
-        }}
-      >
-        ////Retour
-      </div> */}
 
       <AnimatePresence>
         {true && (
@@ -62,7 +34,7 @@ const directors = ({ directors }) => {
             {directors.map((director, index) => {
               return (
                 <DirectorPanel
-                  color={colors[index]}
+                  color={palettes[index]}
                   key={director.Nom}
                   director={director}
                   setFeatured={setFeatured}
@@ -76,12 +48,6 @@ const directors = ({ directors }) => {
           </motion.div>
         )}
       </AnimatePresence>
-      {/*  <div className="director-featured">
-        <div className="image">
-          {featured && <img src={featured.image.formats.large.url} alt="" />}
-        </div>
-        <div className="desc"></div>
-      </div> */}
     </div>
   );
 };
@@ -94,9 +60,19 @@ export async function getStaticProps() {
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
+  const ColorThief = require('colorthief');
   const directors = await data.json();
+
+  const palettes = await Promise.all(
+    directors.map(async ({ image }) => {
+      const palette = await ColorThief.getPalette(image.formats.small.url);
+      return palette;
+    })
+  );
+  console.log(palettes);
+
   return {
-    props: { directors }, // will be passed to the page component as props
+    props: { directors, palettes }, // will be passed to the page component as props
   };
 }
 

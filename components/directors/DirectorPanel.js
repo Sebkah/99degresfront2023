@@ -1,8 +1,10 @@
 import { DirectorMovie } from './DirectorMovie';
+import Cross from './Cross';
 import React from 'react';
 import { useEffect } from 'react';
 import {
   motion,
+  useWillChange,
   AnimatePresence,
   useMotionValue,
   animate,
@@ -36,46 +38,33 @@ const DirectorPanel = ({
     }
   }
 
-  let zIndex = index * 100;
+  const palette = 0;
 
-  if (featured) zIndex *= 1000;
-
-  /* const backgroundSize = isFeatured ? 'contain' : 'contain'; */
-  const backgroundSize = 'contain';
-
-  const style = {
-    left,
-    zIndex: index * 100,
-  };
-
-  const palette = 1;
-
-  const colorStyle = color
-    ? `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `
-    : 'white';
+  const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
 
   return (
     <motion.div
       className="director-panel"
       key={Nom}
-      layout
-      style={style}
-      /* transition={{ duration: 4 }} */
+      animate={{ left }}
+      transition={{ duration: 0.5 }}
+      onClick={() => {
+        setFeatured(director);
+        setIndexFeatured(index);
+        console.log('Selected : ', director.Nom);
+      }}
+      style={{ cursor: isFeatured ? 'default' : 'pointer' }}
     >
       {/* NAME */}
-      <motion.div
-        onClick={() => {
-          setFeatured(director);
-          setIndexFeatured(index);
-          /*  console.log(director); */
-        }}
-        className="name-container"
-      >
+
+      <div className="name-container">
+        <Cross render={isFeatured} setFeatured={setFeatured}></Cross>
+
         <div className="surname" style={{ color: colorStyle }}>
           {surname}
         </div>
         <div className="name">{name}</div>
-      </motion.div>
+      </div>
 
       {/* CONTENT */}
 
@@ -83,22 +72,18 @@ const DirectorPanel = ({
         <DirectorBio en={descEng} fr={descFr}></DirectorBio>
 
         <div className="director-movies">
-          {director.movies.map((movie) => {
+          {director.movies.map((movie, index) => {
             if (!image.formats.medium.url) console.log(title);
 
             return (
-              <DirectorMovie color={color} key={movie.title} movie={movie} />
+              <DirectorMovie
+                color={color}
+                key={movie.title}
+                paletteSelector={1}
+                movie={movie}
+              />
             );
           })}
-        </div>
-        <div
-          className="director-back"
-          onClick={() => {
-            console.log('baaack');
-            setFeatured(null);
-          }}
-        >
-          X
         </div>
       </div>
 
@@ -114,7 +99,7 @@ const DirectorPanel = ({
           backgroundPosition: isFeatured ? '50% 50%' : null,
           filter: isFeatured ? 'grayscale(0%)' : null,
         }}
-        /*    transition={{ duration: 4 }} */
+        /*  transition={{ duration: 4 }} */
       ></motion.div>
     </motion.div>
   );

@@ -76,31 +76,32 @@ const Layout = ({ children }) => {
       {hasWindow && true && (
         <div className="video">
           <Blackbars></Blackbars>
-          {/*     <ReactPlayer
-            className="fullscreen-video"
-            width="100%"
-            height="100%"
-            muted={true}
-            loop={true}
-            playing={true}
-            controls={false}
-            ref={player}
-            onProgress={({ playedSeconds }) => {
-              if (playedSeconds > player.current.getDuration() - 50)
-                player.current.seekTo(10);
-            }}
-            config={{
-              youtube: {
-                playerVars: {
-                  rel: 0,
-                  controls: 0,
-                  iv_load_policy: 3,
+          {
+            <ReactPlayer
+              className="fullscreen-video"
+              width="100%"
+              height="100%"
+              muted={true}
+              loop={true}
+              playing={true}
+              controls={false}
+              ref={player}
+              onProgress={({ playedSeconds }) => {
+                if (playedSeconds > player.current.getDuration() - 50)
+                  player.current.seekTo(10);
+              }}
+              config={{
+                youtube: {
+                  playerVars: {
+                    rel: 0,
+                    controls: 0,
+                    iv_load_policy: 3,
+                  },
                 },
-              },
-            }}
-          
-            url={videosUrl[videoCounter]}
-          /> */}
+              }}
+              url={videosUrl[videoCounter]}
+            />
+          }
         </div>
       )}
     </div>

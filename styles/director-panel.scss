@@ -1,23 +1,36 @@
 .directors-grid {
   position: relative;
-  height: 80%;
+
+  height: 100%;
 
   /* border-bottom: 3px solid white; */
 }
 
+@mixin transition {
+  @for $i from 0 through 11 {
+    &:nth-child(#{$i}) {
+      z-index: #{$i * 100};
+    }
+  }
+}
+
 .director-panel {
+  @include transition;
+  /* will-change: transform; */
   display: grid;
   grid-template-columns: calc(100% / 11) 1fr;
   position: absolute;
 
   width: 100%;
-  height: calc(100% - 15px);
+  /*   height: calc(100% - 15px); */
+  height: 100vh;
 
   /*   border-bottom: 2px solid white;
   border-top: 2px solid white; */
-  padding: 30px 0px;
+  padding: 100px 0px;
 
   background-color: black;
+  cursor: pointer;
 
   &:hover {
     .director-background {
@@ -26,28 +39,45 @@
     }
   }
 
+  /*  position: relative; */
+  /*   height: 100%;
+    width: 100%;
+    padding-bottom: 30px; */
+
   .name-container {
     /*    display: grid; */
 
     /*  justify-items: center; */
+    position: relative;
     /* align-items: center; */
 
-    position: relative;
     writing-mode: vertical-lr;
     writing-mode: sideways-rl;
     transform: rotate(180deg);
+    /* transform-origin: 50% 50%; */
     text-align: left;
     /*   width: calc(100% / 11); */
     height: 100%;
 
     line-height: 250%;
-    cursor: pointer;
+    z-index: 10000;
+
+    .crossLink {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      cursor: pointer;
+
+      height: 85px;
+      z-index: 100000;
+    }
 
     .name {
       font-size: 500%;
       /*     letter-spacing: -25px; */
       /*   background-color: black; */
     }
+
     .surname {
       font-family: Stanley;
       /*    letter-spacing: 0px; */
@@ -59,9 +89,11 @@
   }
 
   .director-content {
-    position: relative;
     display: grid;
     width: 100%;
+    height: min-content;
+    align-self: end;
+    height: 80%;
 
     border-left: 4px solid white;
     margin-left: 10px;
@@ -86,8 +118,12 @@
     .director-movies {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      align-self: end;
+
+      height: min-content;
 
       grid-template-rows: auto;
+      background-color: black;
 
       gap: 20px;
       gap: 0px;
@@ -96,7 +132,8 @@
         position: relative;
         background-size: cover;
         width: 100%;
-        height: 100%;
+        /*    height: 100%; */
+        aspect-ratio: 16/9;
 
         padding: 10px;
         text-align: right;
@@ -120,16 +157,9 @@
           left: 0;
           width: 100%;
           height: 100%;
-          mix-blend-mode: soft-light;
-          opacity: 1;
+          mix-blend-mode: overlay;
+
           z-index: 3;
-          backdrop-filter: grayscale(1) brightness(1);
-
-          transition: 1s;
-
-          &:hover {
-            backdrop-filter: grayscale(0) brightness(1);
-          }
         }
 
         .movie-image {
@@ -140,8 +170,13 @@
           width: 100%;
           height: 100%;
 
-          object-fit: cover;
           z-index: 2;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
       }
     }
@@ -164,7 +199,7 @@
     /* left: 0; */
     right: 0;
     width: calc(100vw / 11 + 200px);
-    width: calc(60vw);
+    width: calc(50vw);
     /*  width: 800px; */
     height: 100%;
     z-index: -10;
