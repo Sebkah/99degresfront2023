@@ -19,7 +19,7 @@ export function DirectorBackground({ isFeatured, image, overlayColor }) {
         <motion.div
           className="background-color-overlay"
           animate={{
-            opacity: isFeatured ? 0.5 : 0,
+            opacity: isFeatured ? 0 : 0,
           }}
           style={{
             backgroundColor: overlayColor,
