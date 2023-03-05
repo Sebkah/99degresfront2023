@@ -16,10 +16,14 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useRouter } from 'next/router';
+import { useAppContext } from '../context/context';
 
 const Layout = ({ children }) => {
   const [hasWindow, setHasWindow] = useState(false);
   const [videoCounter, setCounter] = useState(0);
+  const [popup, setPopup] = useState(false);
+
+  const { language } = useAppContext();
 
   const videosUrl = [
     'https://youtu.be/-AIb3gj329k',
@@ -65,10 +69,25 @@ const Layout = ({ children }) => {
         </a>
         <a
           className="insta99"
-          href="https://www.instagram.com/collectif99degres/"
+          /*   href="mailto:collectif99degres@gmail.com" */
           target="_blank"
           rel="noreferrer"
+          onClick={() => {
+            navigator.clipboard.writeText('collectif99degres@gmail.com');
+            setPopup(true);
+            setTimeout(() => {
+              setPopup(false);
+            }, 2000);
+          }}
         >
+          {popup && (
+            <div className="copy-popup">
+              {language == 'en'
+                ? 'Email copié dans le presse-papier'
+                : 'Email copied to clipboard'}
+            </div>
+          )}
+
           <img src="/icons/mail.svg" alt="" />
         </a>
       </div>

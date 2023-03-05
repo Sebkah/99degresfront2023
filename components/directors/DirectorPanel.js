@@ -1,16 +1,14 @@
-import { DirectorMovie } from './DirectorMovie';
-import Cross from './Cross';
-import React from 'react';
-import { useEffect } from 'react';
-import {
-  motion,
-  useWillChange,
-  AnimatePresence,
-  useMotionValue,
-  animate,
-} from 'framer-motion';
+import { DirectorBackground } from './DirectorBackground';
+/* COMPONENTS */
+import { Name } from './Name';
+
+import { DirectorMovies } from './DirectorMovies';
 
 import DirectorBio from './DirectorBio';
+
+/* LIB */
+import React from 'react';
+import { motion } from 'framer-motion';
 
 import { useAppContext } from '../../context/context';
 
@@ -23,32 +21,33 @@ const DirectorPanel = ({
   index,
   color,
 }) => {
+  /*  console.log(director); */
+  /* Getting props and context */
   const { language } = useAppContext();
-
-  const { Nom, image, descEng, descFr } = director;
+  const { Nom, image, descEng, descFr, email, websiteUrl, instaUrl } = director;
 
   const [name, surname] = Nom.split(' ');
 
+  /* Checking if this panel is featured */
   const isFeatured = featured == director;
 
+  /* if this panel is featured, swoosh it on the left, if not, base position */
   let left = isFeatured ? 0 : `calc(${index}*100vw/11*1)`;
 
+  /* if there's a director featured, and this panel is on top, swhoosh it to the right */
   if (featured != null) {
-    if (indexFeatured != null) {
-      if (index > indexFeatured) {
-        left = '100%';
-      }
+    if (index > indexFeatured) {
+      left = '100%';
     }
   }
 
+  /* Select a palette (0-9) */
   const palette = 9;
-
   const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
 
   return (
     <motion.div
       className="director-panel"
-      key={Nom}
       animate={{ left }}
       transition={{ duration: 0.5 }}
       onClick={() => {
@@ -59,65 +58,39 @@ const DirectorPanel = ({
       style={{ cursor: isFeatured ? 'default' : 'pointer' }}
     >
       {/* NAME */}
-
-      <div className="name-container">
-        <Cross render={isFeatured} setFeatured={setFeatured}></Cross>
-
-        <div className="surname" style={{ color: colorStyle }}>
-          {surname}
-        </div>
-        <div className="name">{name}</div>
-      </div>
+      <Name
+        isFeatured={isFeatured}
+        setFeatured={setFeatured}
+        surname={surname}
+        colorStyle={colorStyle}
+        name={name}
+      />
 
       {/* CONTENT */}
-
       <div className="director-content">
-        <DirectorBio en={descEng} fr={descFr}></DirectorBio>
-
-        <div className="director-movies">
-          <h1 style={{ backgroundColor: colorStyle }}>
-            {language == 'en' ? 'movies' : 'films'}
-          </h1>
-          <div className="director-movies-grid">
-            {director.movies.map((movie, index) => {
-              if (!image.formats.medium.url) console.log(title);
-
-              return (
-                <DirectorMovie
-                  color={color}
-                  key={movie.title}
-                  paletteSelector={palette}
-                  movie={movie}
-                  titleColor={'black'}
-                />
-              );
-            })}
-          </div>
-        </div>
+        <DirectorBio
+          en={descEng}
+          fr={descFr}
+          instaUrl={instaUrl}
+          websiteUrl={websiteUrl}
+          email={email}
+          titleColor={colorStyle}
+        ></DirectorBio>
+        <DirectorMovies
+          director={director}
+          language={language}
+          color={color}
+          titleColor={colorStyle}
+          palette={palette}
+        />
       </div>
 
       {/* BACKGROUND */}
-      <motion.div
-        className="director-background"
-        layout
-        style={{
-          left: isFeatured ? null : 0,
-          right: isFeatured ? 0 : null,
-          backgroundImage: `url(${image.formats.large.url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: isFeatured ? '50% 50%' : null,
-          filter: isFeatured ? 'grayscale(0%)' : null,
-        }}
-        /*  transition={{ duration: 4 }} */
-      >
-        {
-          <motion.div
-            className="background-color-overlay"
-            animate={{ opacity: isFeatured ? 0.5 : 0 }}
-            style={{ backgroundColor: colorStyle }}
-          ></motion.div>
-        }
-      </motion.div>
+      <DirectorBackground
+        image={image}
+        overlayColor={colorStyle}
+        isFeatured={isFeatured}
+      />
     </motion.div>
   );
 };

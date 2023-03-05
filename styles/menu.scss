@@ -70,9 +70,18 @@ header {
   /*   height: 1.8rem; */
   position: relative;
   margin: 5px;
+  cursor: pointer;
 
   img {
     height: 30px;
+  }
+
+  .copy-popup {
+    text-align: right;
+    width: 400px;
+    position: absolute;
+    right: 0;
+    top: 100%;
   }
 }
 

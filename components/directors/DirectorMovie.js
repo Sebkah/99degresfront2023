@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  motion,
-  useMotionValue,
-  useMotionTemplate,
-  animate,
-} from 'framer-motion';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 
 const brghtnss = 1;
 

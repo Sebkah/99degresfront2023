@@ -13,8 +13,8 @@
 @import 'page.scss';
 @import 'title.scss';
 @import 'fullscreen-video.scss';
-@import 'directors.scss';
-@import 'director-panel.scss';
+
+@import './directors/director-panel.scss';
 
 html,
 body {
