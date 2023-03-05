@@ -9,7 +9,7 @@ import Blackbars from './fullscreen-video/Blackbars';
 import Title from './navigation/Title';
 import LanguageSwitch from './navigation/LanguageSwitch';
 
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 
 import { useState, useEffect, useRef } from 'react';
 
@@ -94,9 +94,9 @@ const Layout = ({ children }) => {
       {children}
       {hasWindow && true && (
         <div className="video">
-          <Blackbars></Blackbars>
+          {<Blackbars></Blackbars>}
           {
-            <ReactPlayer
+            /*  <ReactPlayer
               className="fullscreen-video"
               width="100%"
               height="100%"
@@ -109,7 +109,7 @@ const Layout = ({ children }) => {
                 if (playedSeconds > player.current.getDuration() - 50)
                   player.current.seekTo(10);
               }}
-              config={{
+                 config={{
                 youtube: {
                   playerVars: {
                     rel: 0,
@@ -119,7 +119,14 @@ const Layout = ({ children }) => {
                 },
               }}
               url={videosUrl[videoCounter]}
-            />
+           
+            /> */
+            <video
+              className="fullscreen-video"
+              autoPlay
+              muted
+              src="video.mp4"
+            ></video>
           }
         </div>
       )}
