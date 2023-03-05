@@ -3,6 +3,7 @@ import { DirectorBackground } from './DirectorBackground';
 import { Name } from './Name';
 
 import { DirectorMovies } from './DirectorMovies';
+import { Links } from './Links';
 
 import DirectorBio from './DirectorBio';
 
@@ -43,7 +44,12 @@ const DirectorPanel = ({
 
   /* Select a palette (0-9) */
   const palette = 9;
+  const paletteBG = 3;
+  const BGLuminosity = 0;
   const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
+  const colorStyleBG = `rgb(${color[paletteBG][0] * BGLuminosity}, ${
+    color[paletteBG][1] * BGLuminosity
+  }, ${color[paletteBG][2] * BGLuminosity}) `;
 
   return (
     <motion.div
@@ -55,7 +61,10 @@ const DirectorPanel = ({
         setIndexFeatured(index);
         console.log('Selected : ', director.Nom);
       }}
-      style={{ cursor: isFeatured ? 'default' : 'pointer' }}
+      style={{
+        cursor: isFeatured ? 'default' : 'pointer',
+        backgroundColor: colorStyleBG,
+      }}
     >
       {/* NAME */}
       <Name
@@ -68,6 +77,12 @@ const DirectorPanel = ({
 
       {/* CONTENT */}
       <div className="director-content">
+        <Links
+          instaUrl={instaUrl}
+          email={email}
+          language={language}
+          websiteUrl={websiteUrl}
+        />
         <DirectorBio
           en={descEng}
           fr={descFr}
