@@ -21,7 +21,7 @@ const directors = ({ directors, palettes }) => {
 
   return (
     <div className="page-container">
-      <PageTitle en="directors" fr="réalisateurs" />
+      <PageTitle posiion={'absolute'} en="directors" fr="réalisateurs" />
       <motion.div
         className="directors-grid"
         initial={{ opacity: 0 }}

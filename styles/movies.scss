@@ -1,0 +1,17 @@
+.movies {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  overflow: auto;
+
+  .movie-section {
+  }
+
+  .movie-section-title {
+    font-size: 5rem;
+  }
+}
+/* 
+*::-webkit-scrollbar {
+  display: none;
+} */

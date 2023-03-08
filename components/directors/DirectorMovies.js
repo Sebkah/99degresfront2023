@@ -1,5 +1,8 @@
 import React from 'react';
 import { DirectorMovie } from './DirectorMovie';
+
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 export function DirectorMovies({
   director,
   language,
@@ -8,6 +11,8 @@ export function DirectorMovies({
   color,
   palette,
 }) {
+  const ref = useRef(null);
+
   return (
     <div className="director-movies">
       <h1

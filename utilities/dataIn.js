@@ -1,26 +1,31 @@
-const fetch = require('node-fetch');
+const csv = require('csvtojson');
 const fs = require('fs');
 
-const getMovies = async () => {
-  const res = await fetch('http://localhost:1337/projects');
-  const movies = await res.json();
-  /*   console.log(movies); */
-  const movieTitles = movies.map(({ title }) => {
-    return `${title}`;
+const axios = require('axios');
+
+const csvFilePath = 'tags.csv';
+
+const postTags = async () => {
+  const data = await csv().fromFile('csvFilePath');
+  console.log(data[0]['description français']);
+  const tags = data.map((movie) => {
+    const tag = movie.tag;
+    const descFR = movie['description français'];
+    return { tag, descFR };
   });
 
-  const csv = movieTitles.reduce((acc, current) => {
-    return acc + '\n' + current;
-  }, 'title ');
+  console.log(tags);
 
-  console.log(csv);
+  const movies = await axios.get('http://localhost:1337/projects');
 
-  const json = JSON.stringify(movieTitles);
+  movies.data.forEach(({ id }, index) => {
+    console.log(id);
 
-  fs.writeFile('movieNames.csv', csv, (err) => {
-    console.log(err);
+    axios.put(`http://localhost:1337/projects/${id}`, {
+      tag: tags[index].tag,
+      description: tags[index].descFR,
+    });
   });
-  console.log(movieTitles);
 };
 
-getMovies();
+postTags();

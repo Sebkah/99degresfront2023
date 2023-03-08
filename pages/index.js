@@ -22,23 +22,19 @@ export default function Home() {
   return (
     <header>
       <div className="menu-container">
-        <AnimatePresence>
-          {isHomePage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <Title />
-              <Menu>
-                <MenuItem name={['directors', 'réalisateurs']} />
-                <MenuItem name={['movies', 'films']} />
-                <MenuItem name={['about', 'à propos']} />
-              </Menu>
-              {/* <About /> */}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <Title />
+          <Menu>
+            <MenuItem name={['directors', 'réalisateurs']} />
+            <MenuItem name={['movies', 'films']} />
+            <MenuItem name={['about', 'à propos']} />
+          </Menu>
+          {/* <About /> */}
+        </motion.div>
       </div>
     </header>
   );

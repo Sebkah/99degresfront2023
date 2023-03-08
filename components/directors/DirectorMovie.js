@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 
+import Image from 'next/image';
+
 const brghtnss = 1;
 
 export function DirectorMovie({ movie, color, paletteSelector, titleColor }) {
@@ -14,6 +16,8 @@ export function DirectorMovie({ movie, color, paletteSelector, titleColor }) {
   /*   const palette = 0; */
 
   const colorStyle = `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `;
+
+  console.log(image.formats.medium);
 
   return (
     <div key={id} className="director-movie">
@@ -49,7 +53,12 @@ export function DirectorMovie({ movie, color, paletteSelector, titleColor }) {
         }}
         className="movie-image"
       >
-        <img src={image.formats.medium.url} alt="" />
+        <Image
+          src={image.formats.medium.url}
+          width={image.formats.medium.width}
+          height={image.formats.medium.height}
+          alt=""
+        />
       </motion.div>
     </div>
   );

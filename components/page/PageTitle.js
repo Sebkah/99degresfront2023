@@ -6,7 +6,7 @@ import Back from './Back';
 
 const displacement = 100;
 
-const PageTitle = ({ en, fr }) => {
+const PageTitle = ({ en, fr, position }) => {
   const { language } = useAppContext();
   const title = language == 'en' ? en : fr;
 
@@ -17,6 +17,7 @@ const PageTitle = ({ en, fr }) => {
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: displacement }}
         className="page-title"
+        style={{ position: position }}
       >
         <Back></Back>
         {title}

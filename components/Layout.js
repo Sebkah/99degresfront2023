@@ -94,7 +94,7 @@ const Layout = ({ children }) => {
       {children}
       {hasWindow && true && (
         <div className="video">
-          {<Blackbars></Blackbars>}
+          {/*  {<Blackbars></Blackbars>} */}
           {
             /*  <ReactPlayer
               className="fullscreen-video"
