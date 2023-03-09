@@ -6,7 +6,7 @@ import Back from './Back';
 
 const displacement = 100;
 
-const PageTitle = ({ en, fr, position }) => {
+const PageTitle = ({ en, fr, position, back = '/' }) => {
   const { language } = useAppContext();
   const title = language == 'en' ? en : fr;
 
@@ -19,7 +19,7 @@ const PageTitle = ({ en, fr, position }) => {
         className="page-title"
         style={{ position: position }}
       >
-        <Back></Back>
+        <Back back={back}></Back>
         {title}
       </motion.div>
     </AnimatePresence>

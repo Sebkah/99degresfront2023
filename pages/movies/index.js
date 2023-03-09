@@ -2,19 +2,21 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import PageTitle from '../components/page/PageTitle';
+import PageTitle from '../../components/page/PageTitle';
 import { motion } from 'framer-motion';
 
-import { API_URL } from '../config';
+import { API_URL } from '../../config';
 
-import MovieGrid from '../components/movies/MovieGrid';
+import MovieGrid from '../../components/movies/MovieGrid';
 
-import { useAppContext } from '../context/context';
+import { useAppContext } from '../../context/context';
 
 const movies = ({ movies, moviesByTag }) => {
   const { featured, clip, schoolisover, mastersmovie } = moviesByTag;
   const { language } = useAppContext();
   const [isEN, setIsEN] = useState(language);
+
+  /*  console.log(movies); */
 
   useEffect(() => {
     setIsEN(language == 'en');
@@ -58,7 +60,18 @@ export async function getStaticProps() {
   });
   const movies = await data.json();
 
-  const moviesByTag = movies.reduce((acc, current) => {
+  const ColorThief = require('colorthief');
+
+  const moviesWithPalette = await Promise.all(
+    movies.map(async (movie) => {
+      const palette = await ColorThief.getPalette(
+        movie.image.formats.small.url
+      );
+      return { ...movie, palette };
+    })
+  );
+
+  const moviesByTag = moviesWithPalette.reduce((acc, current) => {
     if (acc[current.tag] == null) {
       return {
         ...acc,

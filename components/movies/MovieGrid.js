@@ -2,24 +2,53 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import { useRouter } from 'next/router';
+
 const MovieGrid = ({ movies, title }) => {
+  const router = useRouter();
+  if (title == "en sortant de l'école" || title == 'school is over')
+    title = 'esd';
+  if (title == "films de fin d'études") title = "fin d'études";
+
   return (
-    <div className="movie-section">
+    <>
       <h1 className="movie-section-title">{title}</h1>
-      <div className="movie-grid">
-        {movies.map(({ title, image }) => {
-          const { url, width, height } = image.formats.medium;
+      <div
+        className={
+          title == 'featured' || title == 'à la une'
+            ? 'movie-grid featured'
+            : 'movie-grid'
+        }
+      >
+        {movies.map(({ title, image, palette, slug }) => {
+          const { url, width, height } = image.formats.large;
+          const x = 0;
+          const color = `rgb(${palette[x][0]}, ${palette[x][1]}, ${palette[x][2]}) `;
 
           return (
-            <div key={title} className="movie">
-              {title}
+            <div
+              key={title}
+              className="movie"
+              onClick={() => {
+                router.push(`/movies/${slug}`);
+              }}
+            >
+              <div className="movie-title" style={{ backgroundColor: 'black' }}>
+                {' '}
+                {title}
+              </div>
 
-              <Image src={url} width={width} height={height}></Image>
+              <Image
+                className="movie-image"
+                src={url}
+                width={width}
+                height={height}
+              ></Image>
             </div>
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 
