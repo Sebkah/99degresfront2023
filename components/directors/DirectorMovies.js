@@ -22,11 +22,18 @@ export function DirectorMovies({
       >
         {language == 'en' ? 'movies' : 'films'}
       </h1>
-      <div className="director-movies-grid">
+      <div
+        className="director-movies-grid"
+        style={{
+          gridTemplateColumns:
+            director.movies.length <= 4 ? '1fr 1fr' : '1fr 1fr 1fr',
+        }}
+      >
         {director.movies.map((movie, index) => {
           return (
             <DirectorMovie
               color={color}
+              director={director}
               key={movie.title}
               paletteSelector={palette}
               movie={movie}

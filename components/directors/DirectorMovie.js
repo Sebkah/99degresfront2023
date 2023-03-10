@@ -1,12 +1,20 @@
 import React from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 import Image from 'next/image';
 
 const brghtnss = 1;
 
-export function DirectorMovie({ movie, color, paletteSelector, titleColor }) {
-  const { title, image, id } = movie;
+export function DirectorMovie({
+  movie,
+  color,
+  paletteSelector,
+  titleColor,
+  director,
+}) {
+  const router = useRouter();
+  const { title, image, id, slug } = movie;
 
   const grayscale = useMotionValue(1);
   const brightness = useMotionValue(brghtnss);
@@ -17,10 +25,16 @@ export function DirectorMovie({ movie, color, paletteSelector, titleColor }) {
 
   const colorStyle = `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `;
 
-  console.log(image.formats.medium);
+  /*   console.log(image.formats.medium); */
 
   return (
-    <div key={id} className="director-movie">
+    <div
+      key={id}
+      className="director-movie"
+      onClick={() => {
+        router.push(`/movies/${slug}?real=${director.id}`);
+      }}
+    >
       <motion.div
         className="color-overlay"
         style={{

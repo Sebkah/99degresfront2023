@@ -11,9 +11,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Director from '../components/directors/Director';
 import DirectorPanel from '../components/directors/DirectorPanel';
 
+import { useRouter } from 'next/router';
+
 const directors = ({ directors, palettes }) => {
   const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
+
+  const router = useRouter();
+
+  if (router.query.real) {
+    if (!featured) {
+      setFeatured(
+        directors.filter((director) => {
+          return director.id == router.query.real;
+        })[0]
+      );
+    }
+    if (featured) {
+      if (featured.id != router.query.real) {
+        console.log(
+          directors.filter((director) => director.id === router.query.real)[0]
+        );
+      }
+    }
+  }
 
   useEffect(() => {
     console.log(featured);

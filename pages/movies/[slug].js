@@ -7,14 +7,20 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 
 import PageTitle from '../../components/page/PageTitle';
-
+import { useRouter } from 'next/router';
 export default function Movie({ movie, directorsFiltered }) {
+  const router = useRouter();
+
+  console.log(router.query.real);
   /* console.log(directorsFiltered); */
   const { title, videoUrl, image, directors } = movie;
+  const back = router.query.real
+    ? `/directors?real=${router.query.real}`
+    : '/movies';
 
   return (
     <motion.div className="page-container">
-      <PageTitle back="/movies" en={title} fr={title}></PageTitle>
+      <PageTitle back={back} en={title} fr={title}></PageTitle>
     </motion.div>
   );
 }

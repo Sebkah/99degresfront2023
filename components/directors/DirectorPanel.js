@@ -54,6 +54,7 @@ const DirectorPanel = ({
   return (
     <motion.div
       className="director-panel"
+      initial={{ left }}
       animate={{ left }}
       transition={{ duration: 0.5 }}
       onClick={() => {
