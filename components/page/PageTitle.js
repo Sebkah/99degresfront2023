@@ -21,6 +21,17 @@ const PageTitle = ({ en, fr, position, back = '/' }) => {
       >
         <Back back={back}></Back>
         {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
+        {title}
       </motion.div>
     </AnimatePresence>
   );

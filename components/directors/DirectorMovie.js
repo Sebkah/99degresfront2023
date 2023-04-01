@@ -32,7 +32,7 @@ export function DirectorMovie({
       key={id}
       className="director-movie"
       onClick={() => {
-        router.push(`/movies/${slug}?real=${director.id}`);
+        router.push(`/movies/${slug}`);
       }}
     >
       <motion.div

@@ -4,9 +4,12 @@ const AppContext = createContext(null);
 
 export function Context({ children }) {
   const [language, setLanguage] = useState('en');
+  const [directorFeatured, setDirectorFeatured] = useState(null);
 
   return (
-    <AppContext.Provider value={{ language, setLanguage }}>
+    <AppContext.Provider
+      value={{ language, setLanguage, directorFeatured, setDirectorFeatured }}
+    >
       {children}
     </AppContext.Provider>
   );

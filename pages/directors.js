@@ -19,23 +19,6 @@ const Directors = ({ directors, palettes }) => {
 
   const router = useRouter();
 
-  if (router.query.real) {
-    if (!featured) {
-      setFeatured(
-        directors.filter((director) => {
-          return director.id == router.query.real;
-        })[0]
-      );
-    }
-    if (featured) {
-      if (featured.id != router.query.real) {
-        console.log(
-          directors.filter((director) => director.id === router.query.real)[0]
-        );
-      }
-    }
-  }
-
   useEffect(() => {
     console.log(featured);
   }, [featured]);
