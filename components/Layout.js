@@ -125,6 +125,7 @@ const Layout = ({ children }) => {
               className="fullscreen-video"
               autoPlay
               muted
+              loop
               src="video.mp4"
             ></video>
           }

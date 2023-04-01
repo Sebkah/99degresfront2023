@@ -6,12 +6,13 @@ const axios = require('axios');
 const csvFilePath = 'tags.csv';
 
 const postTags = async () => {
-  const data = await csv().fromFile('csvFilePath');
+  const data = await csv().fromFile(csvFilePath);
   console.log(data[0]['description français']);
   const tags = data.map((movie) => {
     const tag = movie.tag;
+    const title = movie.Titre;
     const descFR = movie['description français'];
-    return { tag, descFR };
+    return { tag, descFR, title };
   });
 
   console.log(tags);
@@ -22,6 +23,7 @@ const postTags = async () => {
     console.log(id);
 
     axios.put(`http://localhost:1337/projects/${id}`, {
+      title: tags[index].title,
       tag: tags[index].tag,
       description: tags[index].descFR,
     });

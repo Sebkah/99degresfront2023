@@ -8,7 +8,7 @@
   align-items: start;
   /*   width: 100%;
   height: 100%; */
-  background-color: black;
+  /*   background-color: black; */
   overflow: auto;
 
   .movie-section {
@@ -38,15 +38,17 @@
 
   .movie-section-title {
     font-size: 5rem;
-    line-height: 4rem;
+    line-height: 5.2rem;
     padding: 0;
     margin: 0;
     margin-left: 50px;
     margin-right: 20px;
+
     writing-mode: vertical-rl;
     /* text-orientation: upright; */
 
     transform: rotate(180deg);
+    /*  border-bottom: 3px solid white; */
   }
 
   .movie {
@@ -54,6 +56,7 @@
     width: auto;
     height: 25vh;
     /*   aspect-ratio: 16/9; */
+    /* border-top: 3px solid white; */
 
     .movie-title {
       font-size: 1rem;

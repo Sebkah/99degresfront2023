@@ -20,7 +20,7 @@ const MovieGrid = ({ movies, title }) => {
             : 'movie-grid'
         }
       >
-        {movies.map(({ title, image, palette, slug }) => {
+        {movies.map(({ title, image, palette, slug, gif }) => {
           const { url, width, height } = image.formats.large;
           const x = 0;
           const color = `rgb(${palette[x][0]}, ${palette[x][1]}, ${palette[x][2]}) `;
@@ -38,12 +38,22 @@ const MovieGrid = ({ movies, title }) => {
                 {title}
               </div>
 
-              <Image
-                className="movie-image"
-                src={url}
-                width={width}
-                height={height}
-              ></Image>
+              {gif ? (
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  src={gif.url}
+                  className="movie-image"
+                ></video>
+              ) : (
+                <Image
+                  className="movie-image"
+                  src={url}
+                  width={width}
+                  height={height}
+                ></Image>
+              )}
             </div>
           );
         })}

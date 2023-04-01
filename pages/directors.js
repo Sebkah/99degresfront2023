@@ -13,7 +13,7 @@ import DirectorPanel from '../components/directors/DirectorPanel';
 
 import { useRouter } from 'next/router';
 
-const directors = ({ directors, palettes }) => {
+const Directors = ({ directors, palettes }) => {
   const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
 
@@ -92,4 +92,4 @@ export async function getStaticProps() {
   };
 }
 
-export default directors;
+export default Directors;

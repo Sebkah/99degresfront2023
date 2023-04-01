@@ -11,7 +11,7 @@ import MovieGrid from '../../components/movies/MovieGrid';
 
 import { useAppContext } from '../../context/context';
 
-const movies = ({ movies, moviesByTag }) => {
+const Movies = ({ movies, moviesByTag }) => {
   const { featured, clip, schoolisover, mastersmovie } = moviesByTag;
   const { language } = useAppContext();
   const [isEN, setIsEN] = useState(language);
@@ -22,7 +22,7 @@ const movies = ({ movies, moviesByTag }) => {
     setIsEN(language == 'en');
   }, [language]);
 
-  console.log(moviesByTag);
+  /* console.log(moviesByTag); */
   return (
     <div
       className="page-container"
@@ -88,4 +88,4 @@ export async function getStaticProps() {
   };
 }
 
-export default movies;
+export default Movies;
