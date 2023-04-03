@@ -25,7 +25,7 @@ const Directors = ({ directors, palettes }) => {
 
   return (
     <div className="page-container">
-      <PageTitle posiion={'absolute'} en="directors" fr="réalisateurs" />
+      <PageTitle position={'absolute'} en="directors" fr="réalisateurs" />
       <motion.div
         className="directors-grid"
         initial={{ opacity: 0 }}
@@ -38,8 +38,6 @@ const Directors = ({ directors, palettes }) => {
               color={palettes[index]}
               key={director.Nom}
               director={director}
-              setFeatured={setFeatured}
-              featured={featured}
               setIndexFeatured={setIndexFeatured}
               indexFeatured={indexFeatured}
               index={index}

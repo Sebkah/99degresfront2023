@@ -20,10 +20,15 @@ const MovieGrid = ({ movies, title }) => {
             : 'movie-grid'
         }
       >
-        {movies.map(({ title, image, palette, slug, gif }) => {
+        {movies.map(({ title, image, palette, slug, gif, gifHD }) => {
           const { url, width, height } = image.formats.large;
           const x = 0;
           const color = `rgb(${palette[x][0]}, ${palette[x][1]}, ${palette[x][2]}) `;
+          console.log(title, gif);
+
+          let src;
+          if (gif != undefined)
+            src = title === 'featured' ? gifHD.url : gif.url;
 
           return (
             <div
@@ -43,7 +48,7 @@ const MovieGrid = ({ movies, title }) => {
                   autoPlay
                   loop
                   muted
-                  src={gif.url}
+                  src={src}
                   className="movie-image"
                 ></video>
               ) : (

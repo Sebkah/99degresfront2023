@@ -15,8 +15,6 @@ import { useAppContext } from '../../context/context';
 
 const DirectorPanel = ({
   director,
-  setFeatured,
-  featured,
   setIndexFeatured,
   indexFeatured,
   index,
@@ -24,19 +22,21 @@ const DirectorPanel = ({
 }) => {
   /*  console.log(director); */
   /* Getting props and context */
-  const { language } = useAppContext();
+  const { language, setDirectorFeatured, directorFeatured } = useAppContext();
   const { Nom, image, descEng, descFr, email, websiteUrl, instaUrl } = director;
 
   const [name, surname] = Nom.split(' ');
 
+  if (directorFeatured != null) setIndexFeatured(directorFeatured);
+
   /* Checking if this panel is featured */
-  const isFeatured = featured == director;
+  const isFeatured = indexFeatured === index;
 
   /* if this panel is featured, swoosh it on the left, if not, base position */
   let left = isFeatured ? 0 : `calc(${index}*100vw/11*1)`;
 
   /* if there's a director featured, and this panel is on top, swhoosh it to the right */
-  if (featured != null) {
+  if (indexFeatured != null) {
     if (index > indexFeatured) {
       left = '100%';
     }
@@ -58,8 +58,8 @@ const DirectorPanel = ({
       animate={{ left }}
       transition={{ duration: 0.5 }}
       onClick={() => {
-        setFeatured(director);
         setIndexFeatured(index);
+        setDirectorFeatured(index);
         console.log('Selected : ', director.Nom);
       }}
       style={{
@@ -69,8 +69,9 @@ const DirectorPanel = ({
     >
       {/* NAME */}
       <Name
+        setIndexFeatured={setIndexFeatured}
+        setDirectorFeatured={setDirectorFeatured}
         isFeatured={isFeatured}
-        setFeatured={setFeatured}
         surname={surname}
         colorStyle={colorStyle}
         name={name}

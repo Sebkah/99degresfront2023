@@ -2,10 +2,22 @@ import React from 'react';
 
 import Cross from './Cross';
 
-export function Name({ isFeatured, setFeatured, surname, colorStyle, name }) {
+export function Name({
+  isFeatured,
+  setIndexFeatured,
+
+  surname,
+  colorStyle,
+  name,
+  setDirectorFeatured,
+}) {
   return (
     <div className="name-container">
-      <Cross render={isFeatured} setFeatured={setFeatured}></Cross>
+      <Cross
+        render={isFeatured}
+        setDirectorFeatured={setDirectorFeatured}
+        setIndexFeatured={setIndexFeatured}
+      ></Cross>
       <div
         className="surname"
         style={{

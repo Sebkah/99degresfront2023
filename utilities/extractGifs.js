@@ -21,7 +21,7 @@ fs.readdir(directoryPath, function (err, files) {
 
 const outputGif = (file) => {
   const format = 'mp4';
-  let savePath = path.join(__dirname, 'gifs', file);
+  let savePath = path.join(__dirname, 'gifs-hd', file);
   const videoPath = path.join(__dirname, 'movies', file);
   savePath = savePath.replace(/\.[^/.]+$/, '') + '.' + format;
   /*   console.log(savePath); */
@@ -33,13 +33,13 @@ const outputGif = (file) => {
         let startTime = video.metadata.duration.seconds / 2;
         startTime = Math.floor(startTime);
         console.log(file, typeof startTime, startTime);
-        video.addCommand('-b:a', '1024');
+        /*  video.addCommand('-b:a', '2048'); */
         video
           .setVideoStartTime(startTime)
           .setVideoFormat(format)
           .setVideoDuration(6)
           /*    .setVideoAspectRatio('16:9') */
-          .setVideoSize('?x480 Fixed height, calculate width', true, true)
+          .setVideoSize('?x1080 Fixed height, calculate width', true, true)
 
           .save(savePath, function (error, file) {
             if (error) console.log(error);

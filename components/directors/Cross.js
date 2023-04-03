@@ -2,7 +2,7 @@ import { motion, animate, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useRef, useEffect, useContext } from 'react';
 
-const Cross = ({ setFeatured, render }) => {
+const Cross = ({ setIndexFeatured, render, setDirectorFeatured }) => {
   const variants = {
     hidden: {
       pathLength: 0,
@@ -21,7 +21,8 @@ const Cross = ({ setFeatured, render }) => {
           onClick={(e) => {
             e.stopPropagation();
             console.log('baaack');
-            setFeatured(null);
+            setIndexFeatured(null);
+            setDirectorFeatured(null);
           }}
           layoutId="cross"
           className="crossLink"

@@ -47,25 +47,25 @@ var FormData = require('form-data');
 
         form.append(
           'files',
-          fs.createReadStream(path.join(__dirname, 'gifs', file))
+          fs.createReadStream(path.join(__dirname, 'gifs-hd', file))
         );
-        form.append('ref', 'project');
+        /*   form.append('ref', 'project');
         form.append('refId', id);
-        form.append('field', 'gif');
+        form.append('field', 'gif'); */
 
         /* putData(form, id); */
 
-        axios
+        /*     axios
           .post('http://localhost:1337/upload', form)
           .then((response) => {
             const fileId = response.data[0].id;
           })
           .catch((error) => {
             //handle error
-          });
+          }); */
 
         axios
-          .post('your-strapi-url/upload', file)
+          .post('http://localhost:1337/upload/', form)
           .then((response) => {
             const fileId = response.data[0].id;
 
@@ -73,7 +73,7 @@ var FormData = require('form-data');
               method: 'put',
               url: `http://localhost:1337/projects/${id}`,
               data: {
-                gif: fileId,
+                gifHD: fileId,
               },
             })
               .then(({ data }) => {

@@ -8,19 +8,26 @@ import Head from 'next/head';
 
 import PageTitle from '../../components/page/PageTitle';
 import { useRouter } from 'next/router';
+
+import { useAppContext } from '../../context/context';
 export default function Movie({ movie, directorsFiltered }) {
+  const { directorFeatured } = useAppContext();
   const router = useRouter();
 
   console.log(router.query.real);
   /* console.log(directorsFiltered); */
   const { title, videoUrl, image, directors } = movie;
-  const back = router.query.real
-    ? `/directors?real=${router.query.real}`
-    : '/movies';
+  const back = directorFeatured ? `/directors` : '/movies';
 
   return (
     <motion.div className="page-container">
-      <PageTitle back={back} en={title} fr={title}></PageTitle>
+      <PageTitle
+        back={back}
+        position={'relative'}
+        en={title}
+        fr={title}
+      ></PageTitle>
+      <div className="movie">HELLO</div>
     </motion.div>
   );
 }
