@@ -4,11 +4,15 @@ import Image from 'next/image';
 
 import { useRouter } from 'next/router';
 
+import { imageUrlBuilder } from '../../config/sanity';
+
 const MovieGrid = ({ movies, title }) => {
   const router = useRouter();
   if (title == "en sortant de l'école" || title == 'school is over')
     title = 'esd';
   if (title == "films de fin d'études") title = "fin d'études";
+
+  /*   console.log(movies); */
 
   return (
     <>
@@ -20,22 +24,25 @@ const MovieGrid = ({ movies, title }) => {
             : 'movie-grid'
         }
       >
-        {movies.map(({ title, image, palette, slug, gif, gifHD }) => {
-          const { url, width, height } = image.formats.large;
+        {movies.map(({ title, mainImage, palette, slug, gif, GifHd }) => {
           const x = 0;
-          const color = `rgb(${palette[x][0]}, ${palette[x][1]}, ${palette[x][2]}) `;
-          console.log(title, gif);
+
+          //not using colors for movies anymore, it is not calculated in the parent component
+          /*   const color = `rgb(${palette[x][0]}, ${palette[x][1]}, ${palette[x][2]}) `; */
+          /*  console.log(gifHD); */
 
           let src;
-          if (gif != undefined)
-            src = title === 'featured' ? gifHD.url : gif.url;
+
+          if (GifHd) {
+            src = GifHd.asset.url;
+          }
 
           return (
             <div
               key={title}
               className="movie"
               onClick={() => {
-                router.push(`/movies/${slug}`);
+                router.push(`/movies/${slug.current}`);
               }}
             >
               <div className="movie-title" style={{ backgroundColor: 'black' }}>
@@ -43,7 +50,7 @@ const MovieGrid = ({ movies, title }) => {
                 {title}
               </div>
 
-              {gif ? (
+              {GifHd ? (
                 <video
                   autoPlay
                   loop
@@ -54,9 +61,10 @@ const MovieGrid = ({ movies, title }) => {
               ) : (
                 <Image
                   className="movie-image"
-                  src={url}
-                  width={width}
-                  height={height}
+                  src={imageUrlBuilder.image(mainImage).width(600).url()}
+                  alt=""
+                  width={600}
+                  height={338}
                 ></Image>
               )}
             </div>

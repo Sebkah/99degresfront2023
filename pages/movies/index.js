@@ -5,6 +5,15 @@ import { useState, useEffect } from 'react';
 import PageTitle from '../../components/page/PageTitle';
 import { motion } from 'framer-motion';
 
+import { groq } from 'next-sanity';
+
+import {
+  sanityStaticProps,
+  imageUrlBuilder,
+  useSanityQuery,
+  PortableText,
+} from '../../config/sanity';
+
 import { API_URL } from '../../config';
 
 import MovieGrid from '../../components/movies/MovieGrid';
@@ -12,7 +21,7 @@ import MovieGrid from '../../components/movies/MovieGrid';
 import { useAppContext } from '../../context/context';
 
 const Movies = ({ movies, moviesByTag }) => {
-  const { featured, clip, schoolisover, mastersmovie } = moviesByTag;
+  const { featured, clip, ESDE, FFE, dev, pub } = moviesByTag;
   const { language } = useAppContext();
   const [isEN, setIsEN] = useState(language);
 
@@ -22,7 +31,7 @@ const Movies = ({ movies, moviesByTag }) => {
     setIsEN(language == 'en');
   }, [language]);
 
-  /* console.log(moviesByTag); */
+  console.log(moviesByTag);
   return (
     <div
       className="page-container"
@@ -39,52 +48,36 @@ const Movies = ({ movies, moviesByTag }) => {
         <MovieGrid title={isEN ? 'clips' : 'clips'} movies={clip} />
         <MovieGrid
           title={isEN ? 'school is over' : "en sortant de l'école"}
-          movies={schoolisover}
+          movies={ESDE}
         />
         <MovieGrid
           title={isEN ? 'final year movies' : "films de fin d'études"}
-          movies={mastersmovie}
+          movies={FFE}
         />
       </motion.div>
     </div>
   );
 };
 
-export async function getStaticProps() {
-  const data = await fetch(`${API_URL}/projects`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
-  const movies = await data.json();
+export async function getStaticProps(context) {
+  const query = groq`*[_type=='tag']{
+  name,
+  "movies": *[_type== "movie" && references(^._id)]{
+    ...,
+    GifHd{asset->}
+  }    
+}
+ `;
 
-  const ColorThief = require('colorthief');
+  const { data } = await sanityStaticProps({ context, query: query });
 
-  const moviesWithPalette = await Promise.all(
-    movies.map(async (movie) => {
-      const palette = await ColorThief.getPalette(
-        movie.image.formats.small.url
-      );
-      return { ...movie, palette };
-    })
+  const moviesByTag = data.reduce(
+    (obj, item) => ({ ...obj, [item.name]: item.movies }),
+    {}
   );
 
-  const moviesByTag = moviesWithPalette.reduce((acc, current) => {
-    if (acc[current.tag] == null) {
-      return {
-        ...acc,
-        [current.tag]: [current],
-      };
-    } else {
-      acc[current.tag].push(current);
-      return acc;
-    }
-  }, {});
-
   return {
-    props: { movies, moviesByTag }, // will be passed to the page component as props
+    props: { moviesByTag }, // will be passed to the page component as props
   };
 }
 

@@ -9,13 +9,16 @@ import Head from 'next/head';
 import PageTitle from '../../components/page/PageTitle';
 import { useRouter } from 'next/router';
 
+import { groq } from 'next-sanity';
+import { sanityStaticProps } from '../../config/sanity';
+
 import { useAppContext } from '../../context/context';
 export default function Movie({ movie, directorsFiltered }) {
-  const { directorFeatured } = useAppContext();
+  const { directorFeatured, setDirectorFeatured } = useAppContext();
   const router = useRouter();
 
-  console.log(router.query.real);
-  /* console.log(directorsFiltered); */
+  /*   console.log(movie); */
+
   const { title, videoUrl, image, directors } = movie;
   const back = directorFeatured ? `/directors` : '/movies';
 
@@ -27,54 +30,46 @@ export default function Movie({ movie, directorsFiltered }) {
         en={title}
         fr={title}
       ></PageTitle>
-      <div className="movie">HELLO</div>
+      <div className="movie">
+        <div className="directors">
+          {directors.map((director) => {
+            return (
+              <div
+                onClick={() => {
+                  setDirectorFeatured(director.slug);
+                  router.push('/directors');
+                }}
+                key={director.name}
+              >
+                {director.name}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </motion.div>
   );
 }
 
-export async function getStaticPaths() {
-  const data = await fetch(`${API_URL}/projects`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
-  const movies = await data.json();
+export async function getStaticPaths(context) {
+  const query = groq`*[_type=='movie']`;
+  const { data } = await sanityStaticProps({ context, query: query });
 
-  const paths = movies.map((movie) => ({ params: { slug: movie.slug } }));
+  const paths = data.map((movie) => ({ params: { slug: movie.slug.current } }));
   return {
     paths,
     fallback: false, // false or 'blocking'
   };
 }
 
-export async function getStaticProps({ params }) {
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
+export async function getStaticProps(context) {
+  const query = groq`*[_type=='movie' && slug.current=='${context.params.slug}']{
+    ..., 
+    "directors": *[_type=="director" && references(^._id)]
+  }`;
+  const { data } = await sanityStaticProps({ context, query: query });
 
-  const res = await fetch(`${API_URL}/projects?slug=${params.slug}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  let movie = await res.json();
-  movie = movie[0];
+  console.log(context.params.slug);
 
-  const directorsRes = await fetch(`${API_URL}/directors`);
-  const directors = await directorsRes.json();
-
-  const directorsIds = movie.directors.map((director) => {
-    return director.id;
-  });
-
-  const directorsFiltered = directors.filter((director) => {
-    return directorsIds.includes(director.id);
-  });
-
-  console.log(directorsFiltered);
-
-  // Pass post data to the page via props
-  return { props: { movie, directorsFiltered } };
+  return { props: { movie: data[0] } };
 }

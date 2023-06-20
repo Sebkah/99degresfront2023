@@ -4,11 +4,20 @@ import PageTitle from '../components/page/PageTitle';
 
 import { API_URL } from '../config';
 
+import { useAppContext } from '../context/context';
+import { groq } from 'next-sanity';
+
+import {
+  sanityStaticProps,
+  imageUrlBuilder,
+  useSanityQuery,
+  PortableText,
+} from '../config/sanity';
+
 import { useState, useRef, useEffect } from 'react';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
-import Director from '../components/directors/Director';
 import DirectorPanel from '../components/directors/DirectorPanel';
 
 import { useRouter } from 'next/router';
@@ -16,12 +25,12 @@ import { useRouter } from 'next/router';
 const Directors = ({ directors, palettes }) => {
   const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
-
+  const { directorFeatured, setDirectorFeatured } = useAppContext();
   const router = useRouter();
 
   useEffect(() => {
-    console.log(featured);
-  }, [featured]);
+    console.log(directorFeatured);
+  }, []);
 
   return (
     <div className="page-container">
@@ -36,8 +45,10 @@ const Directors = ({ directors, palettes }) => {
           return (
             <DirectorPanel
               color={palettes[index]}
-              key={director.Nom}
+              key={director.name}
               director={director}
+              /*   directorFeatured={directorFeatured}
+              setDirectorFeatured={setDirectorFeatured} */
               setIndexFeatured={setIndexFeatured}
               indexFeatured={indexFeatured}
               index={index}
@@ -49,27 +60,27 @@ const Directors = ({ directors, palettes }) => {
   );
 };
 
-export async function getStaticProps() {
-  const data = await fetch(`${API_URL}/directors`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
+export async function getStaticProps(context) {
+  const query = groq`*[_type=='director']{
+    mail, 
+      movies[]->,
+      ...
+  }`;
+  const { data } = await sanityStaticProps({ context, query: query });
+
   const ColorThief = require('colorthief');
-  const directors = await data.json();
 
   const palettes = await Promise.all(
-    directors.map(async ({ image }) => {
-      const palette = await ColorThief.getPalette(image.formats.small.url);
+    data.map(async ({ mainImage }) => {
+      const palette = await ColorThief.getPalette(
+        imageUrlBuilder.image(mainImage).url()
+      );
       return palette;
     })
   );
-  console.log(palettes);
 
   return {
-    props: { directors, palettes }, // will be passed to the page component as props
+    props: { directors: data, palettes }, // will be passed to the page component as props
   };
 }
 

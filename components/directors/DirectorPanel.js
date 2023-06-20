@@ -23,11 +23,14 @@ const DirectorPanel = ({
   /*  console.log(director); */
   /* Getting props and context */
   const { language, setDirectorFeatured, directorFeatured } = useAppContext();
-  const { Nom, image, descEng, descFr, email, websiteUrl, instaUrl } = director;
+  const { slug, name, mainImage, descEN, descFR, email, websiteUrl, instaUrl } =
+    director;
 
-  const [name, surname] = Nom.split(' ');
+  const [forname, surname] = name.split(' ');
 
-  if (directorFeatured != null) setIndexFeatured(directorFeatured);
+  if (directorFeatured != null) {
+    if (directorFeatured.current == slug.current) setIndexFeatured(index);
+  }
 
   /* Checking if this panel is featured */
   const isFeatured = indexFeatured === index;
@@ -35,7 +38,7 @@ const DirectorPanel = ({
   /* if this panel is featured, swoosh it on the left, if not, base position */
   let left = isFeatured ? 0 : `calc(${index}*100vw/11*1)`;
 
-  /* if there's a director featured, and this panel is on top, swhoosh it to the right */
+  /* if there's a director featured, and this panel is on top, swoosh it to the right */
   if (indexFeatured != null) {
     if (index > indexFeatured) {
       left = '100%';
@@ -59,7 +62,7 @@ const DirectorPanel = ({
       transition={{ duration: 0.5 }}
       onClick={() => {
         setIndexFeatured(index);
-        setDirectorFeatured(index);
+        setDirectorFeatured(slug);
         console.log('Selected : ', director.Nom);
       }}
       style={{
@@ -74,7 +77,7 @@ const DirectorPanel = ({
         isFeatured={isFeatured}
         surname={surname}
         colorStyle={colorStyle}
-        name={name}
+        name={forname}
       />
 
       {/* CONTENT */}
@@ -86,8 +89,8 @@ const DirectorPanel = ({
           websiteUrl={websiteUrl}
         />
         <DirectorBio
-          en={descEng}
-          fr={descFr}
+          en={descEN}
+          fr={descFR}
           instaUrl={instaUrl}
           websiteUrl={websiteUrl}
           email={email}
@@ -104,7 +107,7 @@ const DirectorPanel = ({
 
       {/* BACKGROUND */}
       <DirectorBackground
-        image={image}
+        image={mainImage}
         overlayColor={colorStyle}
         isFeatured={isFeatured}
       />

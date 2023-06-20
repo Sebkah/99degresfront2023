@@ -1,5 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+
+import {
+  sanityStaticProps,
+  imageUrlBuilder,
+  useSanityQuery,
+  PortableText,
+} from '../../config/sanity';
+
 export function DirectorBackground({ isFeatured, image, overlayColor }) {
   return (
     <motion.div
@@ -8,7 +16,10 @@ export function DirectorBackground({ isFeatured, image, overlayColor }) {
       style={{
         left: isFeatured ? null : 0,
         right: isFeatured ? 0 : null,
-        backgroundImage: `url(${image.formats.large.url})`,
+        backgroundImage: `url(${imageUrlBuilder
+          .image(image)
+          .width(1920)
+          .url()})`,
         backgroundSize: 'cover',
         backgroundPosition: isFeatured ? '50% 50%' : null,
         filter: isFeatured ? 'grayscale(0%)' : null,

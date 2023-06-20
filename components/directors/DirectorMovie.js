@@ -4,6 +4,13 @@ import { useRouter } from 'next/router';
 
 import Image from 'next/image';
 
+import {
+  sanityStaticProps,
+  imageUrlBuilder,
+  useSanityQuery,
+  PortableText,
+} from '../../config/sanity';
+
 const brghtnss = 1;
 
 export function DirectorMovie({
@@ -14,7 +21,8 @@ export function DirectorMovie({
   director,
 }) {
   const router = useRouter();
-  const { title, image, id, slug } = movie;
+  const { title, mainImage, id, slug } = movie;
+  /*   console.log(movie); */
 
   const grayscale = useMotionValue(1);
   const brightness = useMotionValue(brghtnss);
@@ -24,15 +32,18 @@ export function DirectorMovie({
   /*   const palette = 0; */
 
   const colorStyle = `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `;
+  /*   console.log(movie); */
 
-  /*   console.log(image.formats.medium); */
+  const image = imageUrlBuilder.image(mainImage);
+
+  /*   console.log(imageUrlBuilder.image(mainImage)); */
 
   return (
     <div
       key={id}
       className="director-movie"
       onClick={() => {
-        router.push(`/movies/${slug}`);
+        router.push(`/movies/${slug.current}`);
       }}
     >
       <motion.div
@@ -68,9 +79,9 @@ export function DirectorMovie({
         className="movie-image"
       >
         <Image
-          src={image.formats.medium.url}
-          width={image.formats.medium.width}
-          height={image.formats.medium.height}
+          width="600"
+          height="338"
+          src={imageUrlBuilder.image(mainImage).width(600).height(338).url()}
           alt=""
         />
       </motion.div>
