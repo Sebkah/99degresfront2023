@@ -78,9 +78,9 @@
   .director-background {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     height: 100%;
-    width: calc(50vw);
+    width: calc(25vw);
     z-index: -10;
 
     background-position: 250% 50%;
