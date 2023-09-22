@@ -26,10 +26,10 @@ export default function Movie({ movie, directorsFiltered }) {
   const back = directorFeatured ? `/directors` : '/movies';
 
   //This is a really dirty hack
-  const isVideoESDE = videoUrl.includes('france');
+  /*  const isVideoESDE = videoUrl.includes('france');
   if (isVideoESDE) {
     videoUrl = null;
-  }
+  } */
 
   return (
     <motion.div className="page-container" style={{ display: 'grid' }}>
