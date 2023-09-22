@@ -1,6 +1,6 @@
 import React from 'react';
-import { API_URL } from '../../config';
-import ReactPlayer from 'react-player';
+import dynamic from 'next/dynamic';
+
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -10,41 +10,73 @@ import PageTitle from '../../components/page/PageTitle';
 import { useRouter } from 'next/router';
 
 import { groq } from 'next-sanity';
-import { sanityStaticProps } from '../../config/sanity';
+import { sanityStaticProps, imageUrlBuilder } from '../../config/sanity';
 
 import { useAppContext } from '../../context/context';
 export default function Movie({ movie, directorsFiltered }) {
+  const ReactPlayer = dynamic(() => import('react-player/lazy'), {
+    ssr: false,
+  });
   const { directorFeatured, setDirectorFeatured } = useAppContext();
   const router = useRouter();
 
-  /*   console.log(movie); */
-
-  const { title, videoUrl, image, directors } = movie;
+  const { title, mainImage, directors, descFR } = movie;
+  let { videoUrl } = movie;
+  console.log(movie);
   const back = directorFeatured ? `/directors` : '/movies';
 
+  //This is a really dirty hack
+  const isVideoESDE = videoUrl.includes('france');
+  if (isVideoESDE) {
+    videoUrl = null;
+  }
+
   return (
-    <motion.div className="page-container">
+    <motion.div className="page-container" style={{ display: 'grid' }}>
       <PageTitle
         back={back}
         position={'relative'}
         en={title}
         fr={title}
       ></PageTitle>
-      <div className="movie">
-        <div className="directors">
-          {directors.map((director) => {
-            return (
-              <div
-                onClick={() => {
-                  setDirectorFeatured(director.slug);
-                  router.push('/directors');
-                }}
-                key={director.name}
-              >
-                {director.name}
-              </div>
-            );
-          })}
+      <div className="movie-page">
+        <div
+          className="movie-video"
+          style={{
+            backgroundImage: `url(${imageUrlBuilder.image(mainImage)})`,
+          }}
+        >
+          {videoUrl && (
+            <ReactPlayer
+              controls={true}
+              url={videoUrl}
+              width="100%"
+              height={'100%'}
+            ></ReactPlayer>
+          )}
+        </div>
+        <div className="movie-info">
+          <div className="movie-description">{descFR}</div>
+          <div className="directors">
+            <p>Un film de</p>
+            <div className="directors-list">
+              {directors.map((director) => {
+                return (
+                  <Link
+                    onClick={() => {
+                      setDirectorFeatured(director.slug);
+                      /*  router.push('/directors'); */
+                    }}
+                    href="/directors"
+                    key={director.name}
+                    className="director-link"
+                  >
+                    {director.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>

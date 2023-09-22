@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useAppContext } from '../../context/context';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Back from './Back';
 
+import { useRef } from 'react';
+
 const displacement = 100;
 
 const PageTitle = ({ en, fr, position, back = '/' }) => {
   const { language } = useAppContext();
+  const titleRef = useRef(null);
   const title = language == 'en' ? en : fr;
+
+  useLayoutEffect(() => {
+    console.log(titleRef.current.offsetWidth, titleRef.current.scrollWidth);
+    console.log(titleRef.current.offsetWidth < titleRef.current.scrollWidth);
+  }, [titleRef]);
 
   return (
     <AnimatePresence>
@@ -20,18 +28,34 @@ const PageTitle = ({ en, fr, position, back = '/' }) => {
         style={{ position: position }}
       >
         <Back back={back}></Back>
-        {title}
-        {/*       {title}
-        {title}
-        {title}
-        {title}
-        {title}
-        {title}
-        {title}
-        {title}
-        {title}
-        {title}
-        {title} */}
+        <motion.div className="page-title-title" ref={titleRef}>
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+          {title}
+        </motion.div>
       </motion.div>
     </AnimatePresence>
   );

@@ -35,7 +35,7 @@ const Movies = ({ movies, moviesByTag }) => {
   return (
     <div
       className="page-container"
-      style={{ display: 'grid', background: 'black' }}
+      style={{ display: 'grid' /*  background: 'black'  */ }}
     >
       <PageTitle position={'relative'} en="movies" fr="films" />
 
