@@ -1,12 +1,14 @@
 .movie-page {
   display: grid;
   height: 100%;
+  overflow: hidden;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
   place-items: center;
+  justify-content: center;
 }
 .movie-video {
-  width: 100%;
+  width: 80%;
   height: 100%;
   background-size: cover;
   background-position: center;
@@ -17,7 +19,9 @@
   }
 }
 .movie-info {
+  overflow: hidden;
   height: 100%;
+
   .directors {
     display: grid;
     grid-template-columns: min-content 1fr;
@@ -35,7 +39,7 @@
     .directors-list {
       display: flex;
       flex-direction: column;
-      justify-content: end;
+      justify-content: flex-end;
       .director-link {
         display: block;
         padding: 5px;
@@ -47,5 +51,6 @@
   .movie-description {
     font-family: Roboto;
     transform: skewX(-10deg);
+    padding: 20px;
   }
 }

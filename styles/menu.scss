@@ -11,13 +11,15 @@ header {
   /* place-items: center; */
   /*   justify-content: center; */
   align-items: center;
+  justify-items: center;
 
   mix-blend-mode: difference;
 
   /*  border-right: 1px solid white; */
-  padding-left: 100px;
+  /*   padding-left: 100px; */
 
   opacity: 1;
+  transform: scale(0.5);
 }
 
 .menu {
@@ -29,6 +31,11 @@ header {
   width: min-content;
   mix-blend-mode: overlay;
   background-color: transparent;
+
+  /* border-left: 20px solid white; */
+
+  padding-left: 20px;
+  margin-left: 20px;
   /* border: red 1px solid; */
 
   /*   justify-content: center; */
@@ -51,8 +58,10 @@ header {
 .utilities {
   position: fixed;
   right: 0;
+  bottom: 0;
   width: min-content;
   display: flex;
+  padding-right: 10px;
 
   z-index: 30;
 
@@ -61,8 +70,11 @@ header {
 }
 
 .menu-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   width: min-content;
-  padding: 40px;
+  /*  padding: 40px; */
+
   /*   background-color: rgba(0, 0, 0, 0.294); */
 }
 
@@ -85,10 +97,30 @@ header {
   }
 }
 
+.real-title-wrapper {
+  display: flex;
+  /*  height: 7rem; */
+}
+.inclusive {
+  display: inline;
+  height: 100%;
+
+  .eur {
+    height: 7rem;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .menu-item {
   display: block;
+  font-family: Rubik Mono One;
+  white-space: nowrap;
   /* display: none; */
   font-size: 4rem;
+  font-size: 9rem;
+
+  line-height: 7rem;
 
   color: white;
   transition: 1s;
@@ -96,6 +128,9 @@ header {
 
   mix-blend-mode: overlay;
   background-color: transparent;
+
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 
   &.active {
     color: transparent;

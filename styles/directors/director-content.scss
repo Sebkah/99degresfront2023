@@ -6,7 +6,7 @@
   /* margin-left: 10px; */
   border-left: 4px solid white;
 
-  align-self: end;
+  align-self: flex-end;
 
   grid-template-columns: min-content 1fr 50vw;
 
@@ -22,8 +22,8 @@
 
   .icons {
     display: flex;
-    align-self: end;
-    align-items: end;
+    align-self: flex-end;
+    align-items: flex-end;
     flex-flow: column;
     /*   position: absolute; */
     margin-top: 10px;
@@ -59,8 +59,8 @@
     padding-left: 20px;
     padding-right: 20px;
 
-    align-self: end;
-    justify-self: end;
+    align-self: flex-end;
+    justify-self: flex-end;
 
     font-size: 0.8rem;
     font-family: Roboto;
@@ -86,7 +86,7 @@
 
     h1 {
       font-family: Munken;
-      justify-self: end;
+      justify-self: flex-end;
       width: 100%;
       width: min-content;
       text-align: left;
@@ -107,9 +107,9 @@
 
     padding: 0 20px;
 
-    align-self: end;
+    align-self: flex-end;
     justify-self: center;
-    align-self: start;
+    align-self: flex-start;
 
     grid-template-rows: min-content 1fr;
 
@@ -119,7 +119,7 @@
     } */
 
     h1 {
-      justify-self: start;
+      justify-self: flex-start;
       width: 100%;
       width: min-content;
       text-align: right;
@@ -133,7 +133,7 @@
   .director-movies-grid {
     display: grid;
     height: min-content;
-    /*  align-self: end; */
+    /*  align-self: flex-end; */
 
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: row-reverse;

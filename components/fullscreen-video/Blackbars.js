@@ -13,7 +13,7 @@ const Blackbars = () => {
   const topY = useMotionValue(800);
   const bottomY = useMotionValue(-800);
 
-  const anim = { duration: 2 };
+  const anim = { duration: 1 };
 
   useEffect(() => {
     if (router.pathname == '/') {

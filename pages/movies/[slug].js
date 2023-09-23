@@ -17,7 +17,7 @@ export default function Movie({ movie, directorsFiltered }) {
   const ReactPlayer = dynamic(() => import('react-player/lazy'), {
     ssr: false,
   });
-  const { directorFeatured, setDirectorFeatured } = useAppContext();
+  const { directorFeatured, setDirectorFeatured, language } = useAppContext();
   const router = useRouter();
 
   const { title, mainImage, directors, descFR } = movie;
@@ -58,7 +58,7 @@ export default function Movie({ movie, directorsFiltered }) {
         <div className="movie-info">
           <div className="movie-description">{descFR}</div>
           <div className="directors">
-            <p>Un film de</p>
+            <p>{language == 'en' ? 'A movie by' : 'Un film de'}</p>
             <div className="directors-list">
               {directors.map((director) => {
                 return (

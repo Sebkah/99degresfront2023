@@ -34,7 +34,7 @@ const Directors = ({ directors, palettes }) => {
 
   return (
     <div className="page-container">
-      <PageTitle position={'absolute'} en="directors" fr="réalisateurs" />
+      <PageTitle position={'absolute'} en="directors" fr="réalisateur.ices" />
       <motion.div
         className="directors-grid"
         initial={{ opacity: 0 }}

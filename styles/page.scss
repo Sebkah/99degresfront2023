@@ -11,11 +11,16 @@
   /*   border: pink 2px solid; */
 }
 
+.page-title-wrapper {
+  overflow: hidden;
+}
+
 .page-title {
   position: absolute;
 
   /*   position: relative; */
   width: 100%;
+  overflow: hidden;
   display: grid;
   font-size: 9rem;
   line-height: 10rem;
@@ -24,9 +29,11 @@
   /*   margin-bottom: 10px; */
   z-index: 10000;
 
+  /*  display: none; */
+
   .page-title-title {
-    overflow: hidden;
-    overflow-y: hidden;
+    overflow: visible;
+    /*     overflow-y: hidden; */
 
     width: 100%;
     white-space: nowrap;
