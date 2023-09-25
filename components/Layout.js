@@ -95,14 +95,14 @@ const Layout = ({ children }) => {
       {hasWindow && true && (
         <div className="video">
           <Blackbars></Blackbars>
-          {/* 
+
           <video
             className="fullscreen-video"
             autoPlay
             muted
             loop
             src="../video.mp4"
-          ></video> */}
+          ></video>
         </div>
       )}
     </div>
