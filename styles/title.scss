@@ -1,15 +1,17 @@
 .title {
-  /*   display: none; */
-  font-family: Rubik Mono One;
-  font-size: 9rem;
-  text-align: right;
+  --scale: 1.95;
 
-  line-height: 7rem;
+  font-family: Rubik Mono One;
+  font-size: calc(16vh * var(--scale));
+
+  line-height: calc(13vh * var(--scale));
   margin: auto;
   align-self: center;
+}
 
-  /*   border-bottom: 2px solid white; */
-
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+.big-title {
+  align-self: center;
+  height: 100%;
+  /* overflow: hidden; */
+  width: 100%;
 }

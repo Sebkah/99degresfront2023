@@ -34,7 +34,7 @@
   &:hover {
     .director-background {
       filter: grayscale(0%) brightness(1);
-      background-position: 150% 50%;
+      background-position: 45% 50%;
     }
   }
   .name-container {
@@ -42,6 +42,7 @@
     height: min-content;
     transform: rotate(180deg);
     transform-origin: 50% 50%;
+    font-family: Stanley;
     z-index: 10000;
 
     align-self: flex-end;
@@ -83,7 +84,7 @@
     width: calc(25vw);
     z-index: -10;
 
-    background-position: 250% 50%;
+    background-position: 50% 50%;
     transition: background-position 1s, filter 0.5s;
     background-repeat: no-repeat;
     background-color: black;
