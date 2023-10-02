@@ -3,7 +3,7 @@ import { createContext, useState, useContext } from 'react';
 const AppContext = createContext(null);
 
 export function Context({ children }) {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('fr');
   const [directorFeatured, setDirectorFeatured] = useState(null);
 
   return (

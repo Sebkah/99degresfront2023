@@ -18,7 +18,7 @@ const PageTitle = ({ en, fr, position, back = '/' }) => {
 
   const moveTitle = () => {
     const width = titleRef.current.clientWidth;
-    console.log(width);
+    /*     console.log(width); */
     titleRef.current.style.transform = `translateX(${
       (frame * width) / -10000
     }px)`;

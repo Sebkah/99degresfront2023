@@ -34,7 +34,6 @@ export default function Home() {
           <MenuItem name={['movies', 'films']} />
           <MenuItem name={['about', 'à propos']} />
         </Menu>
-        {/* <About /> */}
       </motion.div>
     </header>
   );

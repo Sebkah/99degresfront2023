@@ -5,15 +5,20 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { imageUrlBuilder } from '../../config/sanity';
+import Link from 'next/link';
 
 const MovieGrid = ({ movies, title }) => {
-  const router = useRouter();
+  /*   movies = movies.sort((a, b) => {
+    console.log(b.priority);
+    const aPriority = a.priority === undefined ? 0 : a.priority;
+    const bPriority = b.priority === undefined ? 0 : b.priority;
+    return aPriority < bPriority;
+  }); */
+
+  //Adjusting some titles
   if (title == "en sortant de l'école" || title == 'school is over')
     title = 'esd';
   if (title == "films de fin d'études") title = "fin d'études";
-
-  /*   console.log(movies); */
-
   return (
     <>
       <h1 className="movie-section-title">{title}</h1>
@@ -24,38 +29,24 @@ const MovieGrid = ({ movies, title }) => {
             : 'movie-grid'
         }
       >
-        {movies.map(({ title, mainImage, palette, slug, gif, GifHd }) => {
-          const x = 0;
-
-          //not using colors for movies anymore, it is not calculated in the parent component
-          /*   const color = `rgb(${palette[x][0]}, ${palette[x][1]}, ${palette[x][2]}) `; */
-          /*  console.log(gifHD); */
-
-          let src;
-
-          if (GifHd) {
-            src = GifHd.asset.url;
-          }
-
+        {movies.map(({ title, mainImage, slug, gif }) => {
           return (
-            <div
+            <Link
               key={title}
               className="movie"
-              onClick={() => {
-                router.push(`/movies/${slug.current}`);
-              }}
+              href={`/movies/${slug.current}`}
             >
               <div className="movie-title" style={{ backgroundColor: 'black' }}>
                 {' '}
                 {title}
               </div>
 
-              {GifHd ? (
+              {gif ? (
                 <video
                   autoPlay
                   loop
                   muted
-                  src={src}
+                  src={gif.secure_url}
                   className="movie-image"
                 ></video>
               ) : (
@@ -67,7 +58,7 @@ const MovieGrid = ({ movies, title }) => {
                   height={338}
                 ></Image>
               )}
-            </div>
+            </Link>
           );
         })}
       </div>

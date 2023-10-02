@@ -61,12 +61,16 @@ const Movies = ({ movies, moviesByTag }) => {
 
 export async function getStaticProps(context) {
   const query = groq`*[_type=='tag']{
-  name,
-  "movies": *[_type== "movie" && references(^._id)]{
-    ...,
-    GifHd{asset->}
-  }    
-}
+    name,
+    "movies": *[_type== "movie" && references(^._id)]{
+    
+      title, 
+      mainImage, 
+      slug,
+      priority,
+      gif{secure_url}
+    }    
+  }
  `;
 
   const { data } = await sanityStaticProps({ context, query: query });
