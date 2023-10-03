@@ -8,7 +8,7 @@ import { useRef } from 'react';
 
 const displacement = 100;
 
-const PageTitle = ({ en, fr, position, back = '/' }) => {
+const PageTitle = ({ en, fr, position, backFunction }) => {
   const { language } = useAppContext();
   const titleRef = useRef(null);
   const title = language == 'en' ? en : fr;
@@ -49,7 +49,7 @@ const PageTitle = ({ en, fr, position, back = '/' }) => {
         className="page-title"
         style={{ position: position }}
       >
-        <Back back={back}></Back>
+        <Back backFunction={backFunction}></Back>
         <div className="page-title-wrapper">
           <motion.div className="page-title-title" ref={titleRef}>
             {Array(20)

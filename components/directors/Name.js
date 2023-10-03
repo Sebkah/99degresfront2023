@@ -21,12 +21,14 @@ export function Name({
       <div
         className="surname"
         style={{
-          color: colorStyle,
+          backgroundColor: colorStyle,
         }}
       >
         {surname}
       </div>
-      <div className="name">{name}</div>
+      <div style={{}} className="name">
+        {name}
+      </div>
     </div>
   );
 }

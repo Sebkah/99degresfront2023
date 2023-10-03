@@ -21,9 +21,17 @@ const DirectorBio = ({ en, fr, instaUrl, websiteUrl, email, titleColor }) => {
         exit={{ opacity: 0, x: displacement }}
         className="director-bio"
       >
-        <h1 style={{ backgroundColor: titleColor }}>
-          {language === 'en' ? 'biography' : 'biographie'}
-        </h1>
+        <div className="bio-title">
+          <h1 style={{ color: titleColor }}>
+            {language === 'en' ? 'biography' : 'biographie'}
+          </h1>
+          <Links
+            instaUrl={instaUrl}
+            email={email}
+            language={language}
+            websiteUrl={websiteUrl}
+          />
+        </div>
 
         <span>{bio}</span>
       </motion.div>

@@ -34,7 +34,14 @@ export default function Movie({ movie, directorsFiltered }) {
   return (
     <motion.div className="page-container" style={{ display: 'grid' }}>
       <PageTitle
-        back={back}
+        backFunction={() => {
+          console.log('pushed the back button');
+          if (directorFeatured != null) {
+            router.push('/directors');
+          } else {
+            router.push('/movies');
+          }
+        }}
         position={'relative'}
         en={title}
         fr={title}

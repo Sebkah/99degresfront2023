@@ -40,6 +40,10 @@
     white-space: nowrap;
     scrollbar-width: none;
 
+    @media (max-width: 1200px) {
+      display: none;
+    }
+
     /*    &::-webkit-scrollbar {
       width: 0px;
       height: 0px;

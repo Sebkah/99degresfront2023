@@ -27,24 +27,21 @@ const Directors = ({ directors, palettes }) => {
   const { directorFeatured, setDirectorFeatured } = useAppContext();
   const router = useRouter();
 
-  useEffect(() => {
-    console.log(directorFeatured);
-  }, []);
-
   return (
     <div className="page-container">
       <PageTitle
-        back={indexFeatured === null ? '/' : '/directors'}
-        /*   onClick={() => {
-          console.log('no nono');
-          if (directorFeatured !== null) {
-            setIndexFeatured(null);
-            setDirectorFeatured(null);
-          }
-        }} */
         position={'absolute'}
         en="directors"
         fr="réalisateur.ices"
+        backFunction={() => {
+          console.log('pushed the back button');
+          if (indexFeatured == null) {
+            router.push('/');
+            return;
+          }
+          setDirectorFeatured(null);
+          setIndexFeatured(null);
+        }}
       />
       <motion.div
         className="directors-grid"
@@ -88,6 +85,10 @@ export async function getStaticProps(context) {
       return palette;
     })
   );
+
+  data.sort(() => {
+    return Math.random() - 0.5;
+  });
 
   return {
     props: { directors: data, palettes }, // will be passed to the page component as props

@@ -19,11 +19,13 @@ import { API_URL } from '../../config';
 import MovieGrid from '../../components/movies/MovieGrid';
 
 import { useAppContext } from '../../context/context';
+import { useRouter } from 'next/router';
 
 const Movies = ({ movies, moviesByTag }) => {
   const { featured, clip, ESDE, FFE, dev, pub } = moviesByTag;
-  const { language } = useAppContext();
+  const { language, setDirectorFeatured } = useAppContext();
   const [isEN, setIsEN] = useState(language);
+  const router = useRouter();
 
   /*  console.log(movies); */
 
@@ -37,7 +39,15 @@ const Movies = ({ movies, moviesByTag }) => {
       className="page-container"
       style={{ display: 'grid' /*  background: 'black'  */ }}
     >
-      <PageTitle position={'relative'} en="movies" fr="films" />
+      <PageTitle
+        position={'relative'}
+        en="movies"
+        fr="films"
+        backFunction={() => {
+          setDirectorFeatured(null);
+          router.push('/');
+        }}
+      />
 
       <motion.div
         initial={{ opacity: 0 }}

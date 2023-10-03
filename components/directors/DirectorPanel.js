@@ -18,9 +18,7 @@ const DirectorPanel = ({
   setIndexFeatured,
   indexFeatured,
   index,
-  color,
 }) => {
-  /*  console.log(director); */
   /* Getting props and context */
   const { language, setDirectorFeatured, directorFeatured } = useAppContext();
   const {
@@ -37,10 +35,10 @@ const DirectorPanel = ({
 
   const [forname, surname] = name.split(' ');
 
-  /*  if (directorFeatured != null) {
+  if (directorFeatured != null) {
     if (directorFeatured.current == slug.current) setIndexFeatured(index);
   }
- */
+
   /* Checking if this panel is featured */
   const isFeatured = indexFeatured === index;
 
@@ -58,14 +56,8 @@ const DirectorPanel = ({
   const palette = 9;
   const paletteBG = 3;
   const BGLuminosity = 0;
-  /*   const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
-  const colorStyleBG = `rgb(${color[paletteBG][0] * BGLuminosity}, ${
-    color[paletteBG][1] * BGLuminosity
-  }, ${color[paletteBG][2] * BGLuminosity}) `; */
+
   const colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
-  const colorStyleBG = `rgb(${color[paletteBG][0] * BGLuminosity}, ${
-    color[paletteBG][1] * BGLuminosity
-  }, ${color[paletteBG][2] * BGLuminosity}) `;
 
   return (
     <motion.div
@@ -76,7 +68,7 @@ const DirectorPanel = ({
       onClick={() => {
         setIndexFeatured(index);
         setDirectorFeatured(slug);
-        console.log('Selected : ', director.Nom);
+        console.log('Selected : ', director.name);
       }}
       style={{
         cursor: isFeatured ? 'default' : 'pointer',
@@ -89,18 +81,12 @@ const DirectorPanel = ({
         setDirectorFeatured={setDirectorFeatured}
         isFeatured={isFeatured}
         surname={surname}
-        colorStyle={colorStyle}
         name={forname}
+        colorStyle={colorStyle}
       />
 
       {/* CONTENT */}
       <div className="director-content">
-        <Links
-          instaUrl={instaUrl}
-          email={email}
-          language={language}
-          websiteUrl={websiteUrl}
-        />
         <DirectorBio
           en={descEN}
           fr={descFR}
@@ -112,7 +98,6 @@ const DirectorPanel = ({
         <DirectorMovies
           director={director}
           language={language}
-          color={color}
           titleColor={colorStyle}
           palette={palette}
         />

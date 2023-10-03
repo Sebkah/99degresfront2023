@@ -1,5 +1,10 @@
 import React from 'react';
-import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
+import {
+  motion,
+  useMotionValue,
+  useMotionTemplate,
+  animate,
+} from 'framer-motion';
 import { useRouter } from 'next/router';
 
 import Image from 'next/image';
@@ -15,13 +20,14 @@ const brghtnss = 1;
 
 export function DirectorMovie({
   movie,
-  color,
+
   paletteSelector,
   titleColor,
   director,
 }) {
   const router = useRouter();
   const { title, mainImage, id, slug } = movie;
+  const { rgb } = director;
   /*   console.log(movie); */
 
   const grayscale = useMotionValue(1);
@@ -31,7 +37,8 @@ export function DirectorMovie({
 
   /*   const palette = 0; */
 
-  const colorStyle = `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `;
+  /*  const colorStyle = `rgb(${color[paletteSelector][0]}, ${color[paletteSelector][1]}, ${color[paletteSelector][2]}) `; */
+  const colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
   /*   console.log(movie); */
 
   const image = imageUrlBuilder.image(mainImage);
@@ -52,24 +59,27 @@ export function DirectorMovie({
           opacity: 1,
           backgroundColor: colorStyle,
         }}
-        transition={{ duration: 0 }}
+        /*  transition={{ duration: 0.2 }} */
         whileHover={{
           opacity: 0,
         }}
         onHoverStart={() => {
-          /*  animate(grayscale, 0);
-          animate(brightness, 1); */
-          grayscale.set(0);
-          brightness.set(1);
+          animate(grayscale, 0);
+          animate(brightness, 1);
+          /*     grayscale.set(0);
+          brightness.set(1); */
         }}
         onHoverEnd={() => {
-          /*    animate(grayscale, 1);
-          animate(brightness, 1.5); */
-          grayscale.set(1);
-          brightness.set(brghtnss);
+          animate(grayscale, 1);
+          animate(brightness, brightness);
+          /*   grayscale.set(1);
+          brightness.set(brghtnss); */
         }}
       ></motion.div>
-      <div className="movie-title" style={{ backgroundColor: titleColor }}>
+      <div
+        className="movie-title"
+        style={{ backgroundColor: colorStyle, color: 'white' }}
+      >
         {title}
       </div>
       <motion.div

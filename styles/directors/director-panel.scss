@@ -2,19 +2,32 @@
 
 .directors-grid {
   position: relative;
+
   height: 100%;
+
+  @media (max-width: 1200px) {
+  }
 }
 
-@mixin transition {
+//This orders the z-indices of the panels;
+@mixin z-index {
   @for $i from 0 through 11 {
     &:nth-child(#{$i}) {
       z-index: #{$i * 100};
     }
   }
 }
+@mixin x-position {
+  @for $i from 0 through 11 {
+    &:nth-child(#{$i}) {
+      left: calc(#{($i - 1) * 100vw / 11} * var(--animation));
+    }
+  }
+}
 
 .director-panel {
-  @include transition;
+  @include z-index;
+  /*   @include x-position; */
 
   overflow: hidden;
 
@@ -23,13 +36,15 @@
   width: 100%;
   height: 100%;
 
-  padding: 100px 0px;
-  padding-top: 200px;
+  padding: 10vh 0px;
 
   grid-template-columns: calc(100% / 11) 1fr;
 
-  /* background-color: red; */
   cursor: pointer;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
 
   &:hover {
     .director-background {
@@ -40,40 +55,40 @@
   .name-container {
     position: relative;
     height: min-content;
-    transform: rotate(180deg);
-    transform-origin: 50% 50%;
-    font-family: Stanley;
+    font-family: Rubik Mono One;
     z-index: 10000;
 
     align-self: flex-end;
+    justify-self: center;
     writing-mode: vertical-lr;
+    transform: rotate(180deg);
     text-align: left;
-    line-height: 250%;
-
-    /*   margin-right: 10px; */
-
-    .crossLink {
-      position: absolute;
-      height: 85px;
-      bottom: 103%;
-      left: 0;
-      z-index: 100000;
-
-      cursor: pointer;
-    }
 
     .name {
-      /*  font-family: Stanley; */
-      font-size: 600%;
+      font-size: 8vh;
+      line-height: 7vh;
+
+      @media (max-width: 1500px) {
+        font-size: 5vw;
+        line-height: 4vw;
+      }
     }
 
     .surname {
-      font-family: Stanley;
-      font-size: 2rem;
+      padding: 10px 2px;
+      display: inline;
+
+      font-size: 2.5vh;
       color: rgb(46, 36, 246);
+      color: white;
       z-index: 1000;
 
-      /* filter: brightness(1.8) saturate(1); */
+      @media (max-width: 1500px) {
+        font-size: 2.5vw;
+        line-height: 2vw;
+      }
+
+      /*   filter: brightness(1.8) saturate(1); */
     }
   }
 
