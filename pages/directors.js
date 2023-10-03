@@ -23,7 +23,6 @@ import DirectorPanel from '../components/directors/DirectorPanel';
 import { useRouter } from 'next/router';
 
 const Directors = ({ directors, palettes }) => {
-  const [featured, setFeatured] = useState(null);
   const [indexFeatured, setIndexFeatured] = useState(null);
   const { directorFeatured, setDirectorFeatured } = useAppContext();
   const router = useRouter();
@@ -34,7 +33,19 @@ const Directors = ({ directors, palettes }) => {
 
   return (
     <div className="page-container">
-      <PageTitle position={'absolute'} en="directors" fr="réalisateur.ices" />
+      <PageTitle
+        back={indexFeatured === null ? '/' : '/directors'}
+        /*   onClick={() => {
+          console.log('no nono');
+          if (directorFeatured !== null) {
+            setIndexFeatured(null);
+            setDirectorFeatured(null);
+          }
+        }} */
+        position={'absolute'}
+        en="directors"
+        fr="réalisateur.ices"
+      />
       <motion.div
         className="directors-grid"
         initial={{ opacity: 0 }}
@@ -47,8 +58,6 @@ const Directors = ({ directors, palettes }) => {
               color={palettes[index]}
               key={director.name}
               director={director}
-              /*   directorFeatured={directorFeatured}
-              setDirectorFeatured={setDirectorFeatured} */
               setIndexFeatured={setIndexFeatured}
               indexFeatured={indexFeatured}
               index={index}
@@ -63,8 +72,9 @@ const Directors = ({ directors, palettes }) => {
 export async function getStaticProps(context) {
   const query = groq`*[_type=='director']{
     mail, 
-      movies[]->,
-      ...
+    movies[]->,
+    ...,
+    ...color{rgb}
   }`;
   const { data } = await sanityStaticProps({ context, query: query });
 

@@ -23,15 +23,24 @@ const DirectorPanel = ({
   /*  console.log(director); */
   /* Getting props and context */
   const { language, setDirectorFeatured, directorFeatured } = useAppContext();
-  const { slug, name, mainImage, descEN, descFR, email, websiteUrl, instaUrl } =
-    director;
+  const {
+    slug,
+    name,
+    mainImage,
+    descEN,
+    descFR,
+    email,
+    websiteUrl,
+    instaUrl,
+    rgb,
+  } = director;
 
   const [forname, surname] = name.split(' ');
 
-  if (directorFeatured != null) {
+  /*  if (directorFeatured != null) {
     if (directorFeatured.current == slug.current) setIndexFeatured(index);
   }
-
+ */
   /* Checking if this panel is featured */
   const isFeatured = indexFeatured === index;
 
@@ -49,7 +58,11 @@ const DirectorPanel = ({
   const palette = 9;
   const paletteBG = 3;
   const BGLuminosity = 0;
-  const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
+  /*   const colorStyle = `rgb(${color[palette][0]}, ${color[palette][1]}, ${color[palette][2]}) `;
+  const colorStyleBG = `rgb(${color[paletteBG][0] * BGLuminosity}, ${
+    color[paletteBG][1] * BGLuminosity
+  }, ${color[paletteBG][2] * BGLuminosity}) `; */
+  const colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
   const colorStyleBG = `rgb(${color[paletteBG][0] * BGLuminosity}, ${
     color[paletteBG][1] * BGLuminosity
   }, ${color[paletteBG][2] * BGLuminosity}) `;
@@ -67,7 +80,7 @@ const DirectorPanel = ({
       }}
       style={{
         cursor: isFeatured ? 'default' : 'pointer',
-        backgroundColor: colorStyleBG,
+        backgroundColor: colorStyle,
       }}
     >
       {/* NAME */}

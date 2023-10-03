@@ -6,17 +6,12 @@ import LanguageSwitch from './LanguageSwitch';
 
 const Title = () => {
   return (
-    <Link
-      href="/"
-      className="big-title"
-      style={{ /* transform: 'scale(3)' */ justifySelf: 'left' }}
-    >
-      {/*      <div className="title">collectif 99°</div> */}
-      <div className="title">COL</div>
-      <div className="title">LEC</div>
-      <div className="title">TIF</div>
-      <div className="title">99°</div>
-    </Link>
+    <div href="/" className="big-title">
+      <div className="title-line">COL</div>
+      <div className="title-line">LEC</div>
+      <div className="title-line">TIF</div>
+      <div className="title-line">99°</div>
+    </div>
   );
 };
 

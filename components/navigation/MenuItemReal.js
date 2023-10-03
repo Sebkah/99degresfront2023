@@ -19,21 +19,23 @@ const MenuItem = () => {
         'directors'
       ) : (
         <div className="real-title-wrapper">
-          réalisat
-          <motion.div
-            className="inclusive"
-            animate={{ y: '-100%' }}
-            transition={{
-              repeat: Infinity,
+          créat
+          <div className="overflow-wrapper">
+            <motion.div
+              className="inclusive"
+              animate={{ y: '-100%' }}
+              transition={{
+                repeat: Infinity,
 
-              repeatType: 'reverse',
-              repeatDelay: 2,
-              duration: 0.1,
-            }}
-          >
-            <div className="eur">rices</div>
-            <div className="eur">eurs</div>
-          </motion.div>
+                repeatType: 'reverse',
+                repeatDelay: 2,
+                duration: 0.1,
+              }}
+            >
+              <div className="eur">rices</div>
+              <div className="eur">eurs</div>
+            </motion.div>
+          </div>
         </div>
       )}
     </Link>

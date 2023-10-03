@@ -13,11 +13,11 @@ export function Name({
 }) {
   return (
     <div className="name-container">
-      <Cross
+      {/*   <Cross
         render={isFeatured}
         setDirectorFeatured={setDirectorFeatured}
         setIndexFeatured={setIndexFeatured}
-      ></Cross>
+      ></Cross> */}
       <div
         className="surname"
         style={{

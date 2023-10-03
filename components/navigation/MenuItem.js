@@ -3,6 +3,7 @@ import { useAppContext } from '../../context/context';
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useFitText from 'use-fit-text';
 
 const MenuItem = ({ name }) => {
   const router = useRouter();

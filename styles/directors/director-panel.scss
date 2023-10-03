@@ -71,8 +71,9 @@
       font-family: Stanley;
       font-size: 2rem;
       color: rgb(46, 36, 246);
+      z-index: 1000;
 
-      filter: brightness(1.8) saturate(1);
+      /* filter: brightness(1.8) saturate(1); */
     }
   }
 

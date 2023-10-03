@@ -21,20 +21,17 @@ export default function Home() {
   const router = useRouter();
   const isHomePage = router.pathname == '/';
   return (
-    <header>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="menu-container"
-      >
-        <Title />
-        <Menu>
-          <MenuItemReal />
-          <MenuItem name={['movies', 'films']} />
-          <MenuItem name={['about', 'à propos']} />
-        </Menu>
-      </motion.div>
-    </header>
+    <motion.header
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Title />
+      <Menu>
+        <MenuItemReal />
+        <MenuItem name={['movies', 'films']} />
+        <MenuItem name={['about', 'à propos']} />
+      </Menu>
+    </motion.header>
   );
 }

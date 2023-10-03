@@ -1,22 +1,11 @@
 import React from 'react';
-
-import Menu from './navigation/Menu';
-import MenuItem from './navigation/MenuItem';
-import About from './navigation/About';
-
-import Blackbars from './fullscreen-video/Blackbars';
-
-import Title from './navigation/Title';
-import LanguageSwitch from './navigation/LanguageSwitch';
-
-import ReactPlayer from 'react-player';
-
 import { useState, useEffect, useRef } from 'react';
 
-import { motion, AnimatePresence } from 'framer-motion';
-
-import { useRouter } from 'next/router';
 import { useAppContext } from '../context/context';
+import { useRouter } from 'next/router';
+
+import Blackbars from './fullscreen-video/Blackbars';
+import LanguageSwitch from './navigation/LanguageSwitch';
 
 const Layout = ({ children }) => {
   const [hasWindow, setHasWindow] = useState(false);
@@ -96,13 +85,13 @@ const Layout = ({ children }) => {
         <div className="video">
           <Blackbars></Blackbars>
 
-          <video
+          {/*    <video
             className="fullscreen-video"
             autoPlay
             muted
             loop
             src="../video.mp4"
-          ></video>
+          ></video> */}
         </div>
       )}
     </div>

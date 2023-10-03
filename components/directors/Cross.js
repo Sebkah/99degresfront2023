@@ -19,7 +19,7 @@ const Cross = ({ setIndexFeatured, render, setDirectorFeatured }) => {
       {render && (
         <motion.div
           onClick={(e) => {
-            e.stopPropagation();
+            /*   e.stopPropagation(); */
             console.log('baaack');
             setIndexFeatured(null);
             setDirectorFeatured(null);
