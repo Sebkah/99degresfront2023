@@ -3,13 +3,7 @@ import { DirectorMovie } from './DirectorMovie';
 
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-export function DirectorMovies({
-  director,
-  language,
-  titleColor,
-
-  palette,
-}) {
+export function DirectorMovies({ director, language, titleColor }) {
   const ref = useRef(null);
 
   return (
@@ -32,7 +26,6 @@ export function DirectorMovies({
             <DirectorMovie
               director={director}
               key={movie.title}
-              paletteSelector={palette}
               movie={movie}
               titleColor={'black'}
             />

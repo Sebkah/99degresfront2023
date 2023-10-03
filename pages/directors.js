@@ -18,11 +18,15 @@ import { useState, useRef, useEffect } from 'react';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
+import DirectorPanelMobile from '../components/directors/mobile/DirectorPanelMobile';
 import DirectorPanel from '../components/directors/DirectorPanel';
 
 import { useRouter } from 'next/router';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
-const Directors = ({ directors, palettes }) => {
+const Directors = ({ directors }) => {
+  const isTablet = useMediaQuery('(max-width: 1200px)');
+
   const [indexFeatured, setIndexFeatured] = useState(null);
   const { directorFeatured, setDirectorFeatured } = useAppContext();
   const router = useRouter();
@@ -50,9 +54,16 @@ const Directors = ({ directors, palettes }) => {
         exit={{ opacity: 0 }}
       >
         {directors.map((director, index) => {
-          return (
+          return isTablet ? (
+            <DirectorPanelMobile
+              key={director.name}
+              director={director}
+              setIndexFeatured={setIndexFeatured}
+              indexFeatured={indexFeatured}
+              index={index}
+            ></DirectorPanelMobile>
+          ) : (
             <DirectorPanel
-              color={palettes[index]}
               key={director.name}
               director={director}
               setIndexFeatured={setIndexFeatured}
@@ -75,23 +86,12 @@ export async function getStaticProps(context) {
   }`;
   const { data } = await sanityStaticProps({ context, query: query });
 
-  const ColorThief = require('colorthief');
-
-  const palettes = await Promise.all(
-    data.map(async ({ mainImage }) => {
-      const palette = await ColorThief.getPalette(
-        imageUrlBuilder.image(mainImage).url()
-      );
-      return palette;
-    })
-  );
-
   data.sort(() => {
     return Math.random() - 0.5;
   });
 
   return {
-    props: { directors: data, palettes }, // will be passed to the page component as props
+    props: { directors: data }, // will be passed to the page component as props
   };
 }
 

@@ -6,6 +6,7 @@
   height: 100%;
 
   @media (max-width: 1200px) {
+    overflow: auto;
   }
 }
 
@@ -22,6 +23,69 @@
     &:nth-child(#{$i}) {
       left: calc(#{($i - 1) * 100vw / 11} * var(--animation));
     }
+  }
+}
+
+.director-panel-mobile {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center 75%;
+
+  .name-container {
+    transform: rotate(0deg);
+    writing-mode: inherit;
+    padding: 10px;
+    height: min-content;
+
+    .name {
+      line-height: 6vh;
+    }
+    .surname {
+      padding: 4px;
+    }
+  }
+}
+
+.name-container {
+  position: relative;
+  height: min-content;
+  font-family: Rubik Mono One;
+  z-index: 10000;
+
+  align-self: flex-end;
+  justify-self: center;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: left;
+
+  .name {
+    font-size: 8vh;
+    line-height: 7vh;
+
+    @media (max-width: 1500px) {
+      font-size: 5vw;
+      line-height: 4vw;
+    }
+  }
+
+  .surname {
+    padding: 10px 2px;
+    display: inline;
+
+    font-size: 2.5vh;
+    color: rgb(46, 36, 246);
+    color: white;
+    z-index: 1000;
+
+    @media (max-width: 1500px) {
+      font-size: 2.5vw;
+      line-height: 2vw;
+    }
+
+    /*   filter: brightness(1.8) saturate(1); */
   }
 }
 
@@ -50,45 +114,6 @@
     .director-background {
       filter: grayscale(0%) brightness(1);
       background-position: 45% 50%;
-    }
-  }
-  .name-container {
-    position: relative;
-    height: min-content;
-    font-family: Rubik Mono One;
-    z-index: 10000;
-
-    align-self: flex-end;
-    justify-self: center;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-    text-align: left;
-
-    .name {
-      font-size: 8vh;
-      line-height: 7vh;
-
-      @media (max-width: 1500px) {
-        font-size: 5vw;
-        line-height: 4vw;
-      }
-    }
-
-    .surname {
-      padding: 10px 2px;
-      display: inline;
-
-      font-size: 2.5vh;
-      color: rgb(46, 36, 246);
-      color: white;
-      z-index: 1000;
-
-      @media (max-width: 1500px) {
-        font-size: 2.5vw;
-        line-height: 2vw;
-      }
-
-      /*   filter: brightness(1.8) saturate(1); */
     }
   }
 

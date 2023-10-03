@@ -52,11 +52,6 @@ const DirectorPanel = ({
     }
   }
 
-  /* Select a palette (0-9) */
-  const palette = 9;
-  const paletteBG = 3;
-  const BGLuminosity = 0;
-
   const colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
 
   return (
@@ -99,7 +94,6 @@ const DirectorPanel = ({
           director={director}
           language={language}
           titleColor={colorStyle}
-          palette={palette}
         />
       </div>
 
