@@ -12,7 +12,6 @@ export function DirectorBackground({ isFeatured, image, overlayColor }) {
   return (
     <motion.div
       className="director-background"
-      layout
       style={{
         backgroundImage: `url(${imageUrlBuilder
           .image(image)

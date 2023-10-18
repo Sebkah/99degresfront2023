@@ -129,7 +129,7 @@
 
   overflow: hidden;
 
-  /*  will-change: transform; */
+  will-change: transform;
 
   display: grid;
   position: absolute;
@@ -149,7 +149,7 @@
   &:hover {
     .director-background {
       filter: grayscale(0%) brightness(1);
-      background-position: 45% 50%;
+      /* background-position: 45% 50%; */
     }
   }
 

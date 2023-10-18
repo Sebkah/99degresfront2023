@@ -49,7 +49,6 @@ const DirectorPanel = ({
   /* if there's a director featured, and this panel is on top, swoosh it to the right */
   if (indexFeatured != null) {
     if (index > indexFeatured) {
-      /*   left = '100%'; */
       x = `calc(${11 - index}*100vw/11)`;
     }
   }
@@ -59,7 +58,6 @@ const DirectorPanel = ({
   return (
     <motion.div
       className="director-panel"
-      /*  initial={{ left }} */
       animate={{ x }}
       transition={{ duration: 0.5 }}
       onClick={() => {
