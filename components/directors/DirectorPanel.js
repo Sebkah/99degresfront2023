@@ -1,16 +1,13 @@
-import { DirectorBackground } from './DirectorBackground';
 /* COMPONENTS */
 import { Name } from './Name';
-
 import { DirectorMovies } from './DirectorMovies';
 import { Links } from './Links';
-
 import DirectorBio from './DirectorBio';
+import { DirectorBackground } from './DirectorBackground';
 
 /* LIB */
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useAppContext } from '../../context/context';
 
 const DirectorPanel = ({
@@ -38,11 +35,29 @@ const DirectorPanel = ({
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    if (indexFeatured != index) setShowContent(false);
+    if (indexFeatured !== index) {
+      setShowContent(false);
+    } else {
+      setTimeout(() => {
+        setShowContent(true);
+      }, 500);
+    }
   }, [indexFeatured]);
 
+  useEffect(() => {
+    if (indexFeatured !== index) {
+      setShowContent(false);
+    } else {
+      setTimeout(() => {
+        setShowContent(true);
+      }, 500);
+    }
+  }, []);
+
   if (directorFeatured != null) {
-    if (directorFeatured.current == slug.current) setIndexFeatured(index);
+    if (directorFeatured.current === slug.current) {
+      setIndexFeatured(index);
+    }
   }
 
   /* Checking if this panel is featured */
@@ -66,15 +81,14 @@ const DirectorPanel = ({
       className="director-panel"
       animate={{ x }}
       transition={{ duration: 0.5 }}
-      /*    onAnimationStart={(definition) => {
-        console.log(definition);
-      }} */
       onClick={() => {
         if (indexFeatured != index) {
           setIndexFeatured(index);
           setDirectorFeatured(slug);
           console.log('Selected : ', director.name);
-          setShowContent(true);
+          /*     setTimeout(() => {
+            setShowContent(true);
+          }, 500); */
         }
       }}
       style={{
@@ -94,23 +108,31 @@ const DirectorPanel = ({
       />
 
       {/* CONTENT */}
-      {showContent && (
-        <div className="director-content" ref={directorContentRef}>
-          <DirectorBio
-            en={descEN}
-            fr={descFR}
-            instaUrl={instaUrl}
-            websiteUrl={websiteUrl}
-            email={email}
-            titleColor={colorStyle}
-          ></DirectorBio>
-          <DirectorMovies
-            director={director}
-            language={language}
-            titleColor={colorStyle}
-          />
-        </div>
-      )}
+      <AnimatePresence>
+        {showContent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="director-content"
+            ref={directorContentRef}
+          >
+            <DirectorBio
+              en={descEN}
+              fr={descFR}
+              instaUrl={instaUrl}
+              websiteUrl={websiteUrl}
+              email={email}
+              titleColor={colorStyle}
+            ></DirectorBio>
+            <DirectorMovies
+              director={director}
+              language={language}
+              titleColor={colorStyle}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* BACKGROUND */}
       <DirectorBackground

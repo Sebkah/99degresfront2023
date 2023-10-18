@@ -91,6 +91,7 @@ const DirectorPanelMobile = ({
           titleColor={colorStyle}
         ></DirectorBio>
         <DirectorMovies
+          isMobile={true}
           director={director}
           language={language}
           titleColor={colorStyle}

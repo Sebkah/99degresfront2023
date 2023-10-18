@@ -53,7 +53,8 @@
   }
   span {
     z-index: 100;
-    padding: 40px 40px;
+    /* padding: 40px 40px; */
+    width: 100% !important;
   }
 
   .name-container-centering {
@@ -78,6 +79,17 @@
         text-align: center;
         padding: 4px;
         padding: 10px;
+      }
+
+      @media (max-width: 1000px) {
+        .name {
+          font-size: 10vw;
+          line-height: 9vw;
+        }
+        .surname {
+          font-size: 4.5vw;
+          line-height: 2vw;
+        }
       }
     }
   }
@@ -109,7 +121,7 @@
     padding: 10px 2px;
     display: inline;
 
-    font-size: 2.5vh;
+    font-size: 2.5vw;
     color: rgb(46, 36, 246);
     color: white;
     z-index: 1000;

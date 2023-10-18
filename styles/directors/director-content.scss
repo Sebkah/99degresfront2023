@@ -36,12 +36,29 @@
     /*  text-align: justify; */
 
     span {
+      /*    width: 90%; */
       margin-top: 10px;
       text-align: left;
       text-align: right;
       text-align: justify;
       line-height: 1.5rem;
       letter-spacing: 1px;
+      //spread the text in two columns of equal width
+      column-count: 2;
+      column-gap: 20px;
+      padding: 10px 0px;
+
+      /* font-family: IBM Plex Mono; */
+      font-family: Atkinson Hyperlegible;
+      &.single-column {
+        column-count: 1;
+        width: 50%;
+      }
+
+      @media (max-width: 700px) {
+        width: 100%;
+        column-count: 1;
+      }
     }
 
     .bio-title {

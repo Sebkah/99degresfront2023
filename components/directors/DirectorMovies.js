@@ -3,7 +3,12 @@ import { DirectorMovie } from './DirectorMovie';
 
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-export function DirectorMovies({ director, language, titleColor }) {
+export function DirectorMovies({
+  director,
+  language,
+  titleColor,
+  isMobile = false,
+}) {
   const ref = useRef(null);
 
   return (
@@ -18,7 +23,7 @@ export function DirectorMovies({ director, language, titleColor }) {
       <div
         className="director-movies-grid"
         style={{
-          gridTemplateColumns: '1fr 1fr 1fr',
+          gridTemplateColumns: isMobile ? '1fr 1fr' : '1fr 1fr 1fr',
         }}
       >
         {director.movies.map((movie, index) => {
