@@ -8,8 +8,8 @@ import { Links } from './Links';
 import DirectorBio from './DirectorBio';
 
 /* LIB */
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 import { useAppContext } from '../../context/context';
 
@@ -34,6 +34,12 @@ const DirectorPanel = ({
   } = director;
 
   const [forname, surname] = name.split(' ');
+  const directorContentRef = useRef();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    if (indexFeatured != index) setShowContent(false);
+  }, [indexFeatured]);
 
   if (directorFeatured != null) {
     if (directorFeatured.current == slug.current) setIndexFeatured(index);
@@ -60,10 +66,16 @@ const DirectorPanel = ({
       className="director-panel"
       animate={{ x }}
       transition={{ duration: 0.5 }}
+      /*    onAnimationStart={(definition) => {
+        console.log(definition);
+      }} */
       onClick={() => {
-        setIndexFeatured(index);
-        setDirectorFeatured(slug);
-        console.log('Selected : ', director.name);
+        if (indexFeatured != index) {
+          setIndexFeatured(index);
+          setDirectorFeatured(slug);
+          console.log('Selected : ', director.name);
+          setShowContent(true);
+        }
       }}
       style={{
         left,
@@ -82,21 +94,23 @@ const DirectorPanel = ({
       />
 
       {/* CONTENT */}
-      <div className="director-content">
-        <DirectorBio
-          en={descEN}
-          fr={descFR}
-          instaUrl={instaUrl}
-          websiteUrl={websiteUrl}
-          email={email}
-          titleColor={colorStyle}
-        ></DirectorBio>
-        <DirectorMovies
-          director={director}
-          language={language}
-          titleColor={colorStyle}
-        />
-      </div>
+      {showContent && (
+        <div className="director-content" ref={directorContentRef}>
+          <DirectorBio
+            en={descEN}
+            fr={descFR}
+            instaUrl={instaUrl}
+            websiteUrl={websiteUrl}
+            email={email}
+            titleColor={colorStyle}
+          ></DirectorBio>
+          <DirectorMovies
+            director={director}
+            language={language}
+            titleColor={colorStyle}
+          />
+        </div>
+      )}
 
       {/* BACKGROUND */}
       <DirectorBackground
