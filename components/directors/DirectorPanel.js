@@ -43,12 +43,14 @@ const DirectorPanel = ({
   const isFeatured = indexFeatured === index;
 
   /* if this panel is featured, swoosh it on the left, if not, base position */
-  let left = isFeatured ? 0 : `calc(${index}*100vw/11*1)`;
+  let left = `calc(${index}*100vw/11*1)`;
+  let x = isFeatured ? `calc(${-index}*100vw/11)` : 0;
 
   /* if there's a director featured, and this panel is on top, swoosh it to the right */
   if (indexFeatured != null) {
     if (index > indexFeatured) {
-      left = '100%';
+      /*   left = '100%'; */
+      x = `calc(${11 - index}*100vw/11)`;
     }
   }
 
@@ -57,8 +59,8 @@ const DirectorPanel = ({
   return (
     <motion.div
       className="director-panel"
-      initial={{ left }}
-      animate={{ left }}
+      /*  initial={{ left }} */
+      animate={{ x }}
       transition={{ duration: 0.5 }}
       onClick={() => {
         setIndexFeatured(index);
@@ -66,6 +68,7 @@ const DirectorPanel = ({
         console.log('Selected : ', director.name);
       }}
       style={{
+        left,
         cursor: isFeatured ? 'default' : 'pointer',
         backgroundColor: colorStyle,
       }}
