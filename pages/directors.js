@@ -26,6 +26,8 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const Directors = ({ directors }) => {
   const isTablet = useMediaQuery('(max-width: 1200px)');
+  const directorsGridRef = useRef();
+  /* const isTablet = true; */
 
   const [indexFeatured, setIndexFeatured] = useState(null);
   const { directorFeatured, setDirectorFeatured } = useAppContext();
@@ -49,6 +51,7 @@ const Directors = ({ directors }) => {
       />
       <motion.div
         className="directors-grid"
+        ref={directorsGridRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -56,6 +59,7 @@ const Directors = ({ directors }) => {
         {directors.map((director, index) => {
           return isTablet ? (
             <DirectorPanelMobile
+              directorsGridRef={directorsGridRef}
               key={director.name}
               director={director}
               setIndexFeatured={setIndexFeatured}

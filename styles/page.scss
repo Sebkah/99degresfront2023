@@ -13,6 +13,7 @@
 
 .page-title-wrapper {
   overflow: hidden;
+  pointer-events: none;
 }
 
 .page-title {
@@ -40,9 +41,9 @@
     white-space: nowrap;
     scrollbar-width: none;
 
-    @media (max-width: 1200px) {
+    /*   @media (max-width: 1200px) {
       display: none;
-    }
+    } */
 
     /*    &::-webkit-scrollbar {
       width: 0px;

@@ -85,13 +85,14 @@ const Layout = ({ children }) => {
         <div className="video">
           <Blackbars></Blackbars>
 
-          {/*    <video
-            className="fullscreen-video"
-            autoPlay
-            muted
-            loop
-            src="../video.mp4"
-          ></video> */}
+          {/*      <video
+              className="fullscreen-video"
+              autoPlay
+              muted
+              loop
+              disablePictureInPicture
+              src="../video.mp4"
+            ></video> */}
         </div>
       )}
     </div>
