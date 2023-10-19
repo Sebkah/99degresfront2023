@@ -79,7 +79,7 @@ const DirectorPanelMobile = ({
         style={{
           height: 'min-content',
           position: 'relative',
-          padding: '50px 50px',
+          padding: '50px 3vw',
         }}
       >
         <DirectorBio

@@ -6,6 +6,7 @@ import LanguageSwitch from '../components/navigation/LanguageSwitch';
 import Menu from '../components/navigation/Menu';
 import MenuItem from '../components/navigation/MenuItem';
 import MenuItemReal from '../components/navigation/MenuItemReal';
+import HamburgerMenu from '../components/navigation/mobile/HamburgerMenu';
 
 import About from '../components/navigation/About';
 
@@ -26,6 +27,7 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      {/*   <HamburgerMenu /> */}
       <Title />
       <Menu>
         <MenuItemReal />

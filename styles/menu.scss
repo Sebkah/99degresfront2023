@@ -6,7 +6,7 @@ header {
   height: 100%;
 
   overflow: hidden;
-  z-index: 25;
+  /*   z-index: 2; */
 
   grid-template-columns: min-content 1fr;
 
@@ -31,7 +31,9 @@ header {
   }
 
   @media (max-width: 800px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: min-content;
+    justify-content: center;
+
     .menu {
       display: none;
     }
@@ -39,8 +41,10 @@ header {
 }
 
 .big-title {
+  /*   position: relative; */
   height: 100%;
   width: 100%;
+  /*   z-index: -5; */
 
   .title-line {
     --scale: 1.95; //Magic Number to fit the screen height
@@ -78,6 +82,10 @@ header {
     line-height: calc(4.8vw * var(--scale));
 
     color: white;
+
+    /*  &:hover {
+      text-decoration: underline;
+    } */
   }
 
   .overflow-wrapper {
@@ -147,4 +155,56 @@ header {
   font-family: Munken;
   font-size: 1.2rem;
   border-bottom: 1px solid white;
+}
+
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+
+  @media (max-width: 1200px) {
+    display: grid;
+  }
+  mix-blend-mode: difference;
+
+  position: absolute;
+  right: 0;
+  width: 12vh;
+  height: min-content;
+  gap: 1.5vh;
+  padding-top: 2vh;
+  padding-right: 2vh;
+  z-index: 40;
+}
+
+.hamburger-menu-line {
+  display: block;
+  width: 100%;
+  height: 1.5vh;
+  background-color: white;
+  /*  margin: 10px 0px; */
+  border-radius: 0.5vh;
+}
+
+.hamburger-menu-modal {
+  display: none;
+
+  @media (max-width: 1200px) {
+    display: grid;
+  }
+  place-content: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  z-index: 30;
+
+  //this is needed to reactivate the menu in the hamburger menu
+  .menu {
+    position: relative;
+    display: grid;
+    /*     z-index: 40; */
+    mix-blend-mode: normal;
+    --scale: 2;
+  }
 }

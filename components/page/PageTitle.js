@@ -10,7 +10,8 @@ import WrappingTitle from './WrappingTitle';
 const displacement = 100;
 
 const PageTitle = ({ en, fr, position, backFunction }) => {
-  const isTablet = useMediaQuery('(max-width: 1200px)');
+  let isTablet = useMediaQuery('(max-width: 1200px)');
+  /*   isTablet = false; */
 
   return (
     <AnimatePresence>

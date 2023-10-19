@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 import Blackbars from './fullscreen-video/Blackbars';
 import LanguageSwitch from './navigation/LanguageSwitch';
+import HamburgerMenu from './navigation/mobile/HamburgerMenu';
 
 const Layout = ({ children }) => {
   const [hasWindow, setHasWindow] = useState(false);
@@ -23,7 +24,7 @@ const Layout = ({ children }) => {
     /* 'https://youtu.be/O7tgF0b6uLE', */
   ];
 
-  const player = useRef(null);
+  /*   const player = useRef(null); */
   const router = useRouter();
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -31,7 +32,7 @@ const Layout = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const counter = videoCounter + 1;
     if (router.pathname != '/') return;
     if (counter >= videosUrl.length) {
@@ -39,14 +40,20 @@ const Layout = ({ children }) => {
     } else {
       setCounter((c) => c + 1);
     }
-  }, [router.pathname]);
+  }, [router.pathname]); */
 
   const isHomePage = router.pathname == '/';
   /* console.log(isHomePage); */
 
   return (
     <div className="container" /* style={{ backgroundColor: 'black' }} */>
-      <div className="utilities">
+      <HamburgerMenu />
+      <div
+        className="utilities"
+        style={{
+          mixBlendMode: router.pathname == '/' ? 'difference' : 'normal',
+        }}
+      >
         <LanguageSwitch />
         <a
           className="insta99"
@@ -85,14 +92,14 @@ const Layout = ({ children }) => {
         <div className="video">
           <Blackbars></Blackbars>
 
-          {/*      <video
-              className="fullscreen-video"
-              autoPlay
-              muted
-              loop
-              disablePictureInPicture
-              src="../video.mp4"
-            ></video> */}
+          <video
+            className="fullscreen-video"
+            autoPlay
+            muted
+            loop
+            disablePictureInPicture
+            src="../video.mp4"
+          ></video>
         </div>
       )}
     </div>

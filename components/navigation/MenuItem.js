@@ -14,7 +14,13 @@ const MenuItem = ({ name }) => {
     ? 'menu-item active'
     : 'menu-item';
   return (
-    <Link className={menuClass} href={'/' + name[0]}>
+    <Link
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+      className={menuClass}
+      href={'/' + name[0]}
+    >
       {menuName}
     </Link>
   );

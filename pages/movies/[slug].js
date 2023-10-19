@@ -47,6 +47,7 @@ export default function Movie({ movie, directorsFiltered }) {
         fr={title}
       ></PageTitle>
       <div className="movie-page">
+        <div className="movie-title">{title}</div>
         <div
           className="movie-video"
           style={{
@@ -63,9 +64,12 @@ export default function Movie({ movie, directorsFiltered }) {
           )}
         </div>
         <div className="movie-info">
-          <div className="movie-description">{descFR}</div>
+          <div className="movie-description">
+            <h1>Description</h1>
+            {descFR}
+          </div>
           <div className="directors">
-            <p>{language == 'en' ? 'A movie by' : 'Un film de'}</p>
+            <h1>{language == 'en' ? 'A movie by' : 'Un film de'}</h1>
             <div className="directors-list">
               {directors.map((director) => {
                 return (

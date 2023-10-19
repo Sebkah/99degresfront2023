@@ -14,7 +14,13 @@ const MenuItem = () => {
     ? 'menu-item active'
     : 'menu-item';
   return (
-    <Link className={menuClass} href={'/directors'}>
+    <Link
+      className={menuClass}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+      href={'/directors'}
+    >
       {language == 'en' ? (
         'directors'
       ) : (

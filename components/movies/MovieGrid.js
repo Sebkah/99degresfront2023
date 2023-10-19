@@ -19,6 +19,7 @@ const MovieGrid = ({ movies, title }) => {
   if (title == "en sortant de l'école" || title == 'school is over')
     title = 'esd';
   if (title == "films de fin d'études") title = "fin d'études";
+
   return (
     <>
       <h1 className="movie-section-title">{title}</h1>
