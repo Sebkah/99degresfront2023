@@ -47,6 +47,7 @@ const MovieGrid = ({ movies, title }) => {
                   autoPlay
                   loop
                   muted
+                  playsInline
                   src={gif.secure_url}
                   className="movie-image"
                 ></video>

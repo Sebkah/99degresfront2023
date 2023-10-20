@@ -97,6 +97,7 @@ const Layout = ({ children }) => {
             autoPlay
             muted
             loop
+            playsInline
             disablePictureInPicture
             src="../video.mp4"
           ></video>
