@@ -6,15 +6,55 @@ import { useRouter } from 'next/router';
 
 import { imageUrlBuilder } from '../../config/sanity';
 import Link from 'next/link';
+import { useInView } from 'framer-motion';
+
+const Movie = ({ title, mainImage, slug, gif }) => {
+  const elementRef = React.useRef(null);
+  const videoRef = React.useRef(null);
+  const isInView = useInView(elementRef);
+  return (
+    <Link
+      key={title}
+      ref={elementRef}
+      className="movie"
+      href={`/movies/${slug.current}`}
+      /*   onMouseEnter={() => {
+        videoRef.current && videoRef.current.play();
+      }} */
+      /*  onMouseLeave={() => {
+        videoRef.current && videoRef.current.pause();
+      }} */
+    >
+      <div className="movie-title" style={{ backgroundColor: 'black' }}>
+        {title}
+      </div>
+
+      {gif ? (
+        isInView && (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            src={gif.secure_url}
+            className="movie-image"
+          ></video>
+        )
+      ) : (
+        <Image
+          className="movie-image"
+          src={imageUrlBuilder.image(mainImage).width(600).url()}
+          alt=""
+          width={600}
+          height={338}
+        ></Image>
+      )}
+    </Link>
+  );
+};
 
 const MovieGrid = ({ movies, title }) => {
-  /*   movies = movies.sort((a, b) => {
-    console.log(b.priority);
-    const aPriority = a.priority === undefined ? 0 : a.priority;
-    const bPriority = b.priority === undefined ? 0 : b.priority;
-    return aPriority < bPriority;
-  }); */
-
   //Adjusting some titles
   if (title == "en sortant de l'école" || title == 'school is over')
     title = 'esd';
@@ -30,39 +70,9 @@ const MovieGrid = ({ movies, title }) => {
             : 'movie-grid'
         }
       >
-        {movies.map(({ title, mainImage, slug, gif }) => {
-          return (
-            <Link
-              key={title}
-              className="movie"
-              href={`/movies/${slug.current}`}
-            >
-              <div className="movie-title" style={{ backgroundColor: 'black' }}>
-                {' '}
-                {title}
-              </div>
-
-              {gif ? (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  src={gif.secure_url}
-                  className="movie-image"
-                ></video>
-              ) : (
-                <Image
-                  className="movie-image"
-                  src={imageUrlBuilder.image(mainImage).width(600).url()}
-                  alt=""
-                  width={600}
-                  height={338}
-                ></Image>
-              )}
-            </Link>
-          );
-        })}
+        {movies.map((movie) => (
+          <Movie key={movie.title} {...movie} />
+        ))}
       </div>
     </>
   );

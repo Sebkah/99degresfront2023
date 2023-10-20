@@ -79,7 +79,7 @@ export async function getStaticProps(context) {
       slug,
       priority,
       gif{secure_url}
-    }    
+    } | order(priority desc)
   }
  `;
 

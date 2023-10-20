@@ -20,6 +20,11 @@ const MenuItem = () => {
         e.stopPropagation();
       }}
       href={'/directors'}
+      style={
+        router.pathname === '/directors'
+          ? { color: 'grey', pointerEvents: 'none', cursor: 'default' }
+          : null
+      }
     >
       {language == 'en' ? (
         'directors'

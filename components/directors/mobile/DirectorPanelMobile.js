@@ -76,11 +76,11 @@ const DirectorPanelMobile = ({
       </div>
       <div
         className="director-content"
-        style={{
+        /*   style={{
           height: 'min-content',
           position: 'relative',
           padding: '50px 3vw',
-        }}
+        }} */
       >
         <DirectorBio
           en={descEN}
