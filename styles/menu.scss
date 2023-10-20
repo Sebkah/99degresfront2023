@@ -165,6 +165,7 @@ header {
     display: grid;
   }
   mix-blend-mode: difference;
+  align-content: flex-start;
 
   position: absolute;
   right: 0;
