@@ -20,8 +20,10 @@ import MovieGrid from '../../components/movies/MovieGrid';
 
 import { useAppContext } from '../../context/context';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 const Movies = ({ movies, moviesByTag }) => {
+  const isTablet = useMediaQuery('(max-width: 1200px)');
   const { featured, clip, ESDE, FFE, dev, pub } = moviesByTag;
   const { language, setDirectorFeatured } = useAppContext();
   const [isEN, setIsEN] = useState(language);
@@ -39,15 +41,17 @@ const Movies = ({ movies, moviesByTag }) => {
       className="page-container"
       style={{ display: 'grid' /*  background: 'black'  */ }}
     >
-      <PageTitle
-        position={'relative'}
-        en="movies"
-        fr="films"
-        backFunction={() => {
-          setDirectorFeatured(null);
-          router.push('/');
-        }}
-      />
+      {!isTablet && (
+        <PageTitle
+          position={'relative'}
+          en="movies"
+          fr="films"
+          backFunction={() => {
+            setDirectorFeatured(null);
+            router.push('/');
+          }}
+        />
+      )}
 
       <motion.div
         initial={{ opacity: 0 }}

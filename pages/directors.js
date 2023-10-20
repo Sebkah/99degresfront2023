@@ -35,20 +35,23 @@ const Directors = ({ directors }) => {
 
   return (
     <div className="page-container">
-      <PageTitle
-        position={'absolute'}
-        en="directors"
-        fr="réalisateur.ices"
-        backFunction={() => {
-          console.log('pushed the back button');
-          if (indexFeatured == null) {
-            router.push('/');
-            return;
-          }
-          setDirectorFeatured(null);
-          setIndexFeatured(null);
-        }}
-      />
+      {!isTablet && (
+        <PageTitle
+          position={'absolute'}
+          en="directors"
+          fr="réalisateur.ices"
+          backFunction={() => {
+            console.log('pushed the back button');
+            if (indexFeatured == null) {
+              router.push('/');
+              return;
+            }
+            setDirectorFeatured(null);
+            setIndexFeatured(null);
+          }}
+        />
+      )}
+
       <motion.div
         className="directors-grid"
         ref={directorsGridRef}
