@@ -14,14 +14,18 @@ import {
   useMotionTemplate,
 } from 'framer-motion';
 
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+
 const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
+  const isTablet = useMediaQuery('(max-width: 800px)');
   const elementRef = React.useRef(null);
   const videoRef = React.useRef(null);
   const isInView = useInView(elementRef);
   const grayscale = useMotionValue(1);
   const brightness = useMotionValue(0.9);
 
-  const filter = useMotionTemplate`grayscale(${grayscale}) brightness(${brightness})`;
+  let filter = useMotionTemplate`grayscale(${grayscale}) brightness(${brightness})`;
+  if (isTablet) filter = 'none';
 
   return (
     <Link
@@ -45,6 +49,7 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
         style={{
           opacity: 1,
           backgroundColor: colorStyle,
+          display: isTablet ? 'none' : null,
         }}
         /*  transition={{ duration: 0.2 }} */
         whileHover={{
@@ -60,7 +65,18 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
         }}
       ></motion.div>
 
-      {gif ? (
+      {!gif || isTablet ? (
+        <Image
+          className="movie-image"
+          style={{
+            filter: filter,
+          }}
+          src={imageUrlBuilder.image(mainImage).width(600).url()}
+          alt=""
+          width={600}
+          height={338}
+        ></Image>
+      ) : (
         isInView && (
           <motion.video
             ref={videoRef}
@@ -76,17 +92,6 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
             className="movie-image"
           ></motion.video>
         )
-      ) : (
-        <Image
-          className="movie-image"
-          style={{
-            filter: filter,
-          }}
-          src={imageUrlBuilder.image(mainImage).width(600).url()}
-          alt=""
-          width={600}
-          height={338}
-        ></Image>
       )}
     </Link>
   );

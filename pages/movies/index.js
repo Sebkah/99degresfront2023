@@ -23,7 +23,7 @@ import { useRouter } from 'next/router';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import HamburgerMenu from '../../components/navigation/mobile/HamburgerMenu';
 
-const Movies = ({ movies, moviesByTag }) => {
+const Movies = ({ moviesByTag }) => {
   const isTablet = useMediaQuery('(max-width: 800px)');
   const pageContainerRef = React.useRef(null);
   const { featured, clip, ESDE, FFE, dev, pub } = moviesByTag;
@@ -31,17 +31,15 @@ const Movies = ({ movies, moviesByTag }) => {
   const [isEN, setIsEN] = useState(language);
   const router = useRouter();
 
-  /*  console.log(movies); */
-
   useEffect(() => {
     setIsEN(language == 'en');
   }, [language]);
 
-  console.log(moviesByTag);
+  /*   console.log(moviesByTag); */
   return (
     <div
-      className="page-container"
-      style={{ display: 'grid', backgroundColor: 'red' }}
+      className="page-container movies-page"
+      style={{ display: 'grid', backgroundColor: 'black' }}
       ref={pageContainerRef}
     >
       {isTablet ? (
