@@ -39,8 +39,9 @@
   grid-template-rows: min-content min-content;
 
   &:hover {
-    .director-image.active {
+    .director-image {
       transform: translateY(-10px);
+      filter: grayscale(0%) brightness(1);
     }
   }
 
@@ -48,8 +49,15 @@
     position: absolute;
     object-fit: cover;
     top: 0;
+    transform: translateY(0px);
 
-    transition: transform 1s;
+    filter: grayscale(1) brightness(0.5);
+    transition: transform 1s, filter 0.5s;
+
+    &.active {
+      filter: grayscale(0%) brightness(1);
+      transform: translateY(0px);
+    }
   }
   span {
     z-index: 100;
@@ -106,7 +114,7 @@
   position: relative;
   height: min-content;
   font-family: Rubik Mono One;
-  z-index: 10000;
+  z-index: 20;
 
   align-self: flex-end;
   justify-self: center;

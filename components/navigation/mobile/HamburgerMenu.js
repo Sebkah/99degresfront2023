@@ -9,7 +9,7 @@ import Menu from '../Menu';
 import MenuItem from '../MenuItem';
 import MenuItemReal from '../MenuItemReal';
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({ style }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
@@ -35,11 +35,14 @@ const HamburgerMenu = () => {
         transition={{ duration: 0.2 }}
         style={{
           mixBlendMode: router.pathname == '/' ? 'difference' : 'normal',
+          ...style,
         }}
       >
         <motion.div
           animate={{
-            transform: !isModalOpen ? 'translateY(0)' : 'translateY(3vh)',
+            transform: !isModalOpen
+              ? 'translateY(0)'
+              : 'translateY(max(3vw, 10px))',
           }}
           transition={{ duration: 0.2 }}
           className="hamburger-menu-line"

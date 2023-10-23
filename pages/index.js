@@ -15,9 +15,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useAppContext } from '../context/context';
 
 import { useRouter } from 'next/router';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 export default function Home() {
   const { language, setLanguage } = useAppContext();
+  const isTablet = useMediaQuery('(max-width: 800px)');
 
   const router = useRouter();
   const isHomePage = router.pathname == '/';
@@ -27,7 +29,7 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/*   <HamburgerMenu /> */}
+      {isTablet && <HamburgerMenu />}
       <Title />
       <Menu>
         <MenuItemReal />

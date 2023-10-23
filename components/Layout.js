@@ -24,7 +24,6 @@ const Layout = ({ children }) => {
     /* 'https://youtu.be/O7tgF0b6uLE', */
   ];
 
-  /*   const player = useRef(null); */
   const router = useRouter();
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -43,11 +42,9 @@ const Layout = ({ children }) => {
   }, [router.pathname]); */
 
   const isHomePage = router.pathname == '/';
-  /* console.log(isHomePage); */
 
   return (
-    <div className="container" /* style={{ backgroundColor: 'black' }} */>
-      <HamburgerMenu />
+    <>
       <div
         className="utilities"
         style={{
@@ -65,7 +62,6 @@ const Layout = ({ children }) => {
         </a>
         <a
           className="insta99"
-          /*   href="mailto:collectif99degres@gmail.com" */
           target="_blank"
           rel="noreferrer"
           onClick={() => {
@@ -92,7 +88,7 @@ const Layout = ({ children }) => {
         <div className="video">
           <Blackbars></Blackbars>
 
-          <video
+          {/*     <video
             className="fullscreen-video"
             autoPlay
             muted
@@ -100,10 +96,10 @@ const Layout = ({ children }) => {
             playsInline
             disablePictureInPicture
             src="../video.mp4"
-          ></video>
+          ></video> */}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

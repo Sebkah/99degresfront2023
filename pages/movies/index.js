@@ -21,9 +21,11 @@ import MovieGrid from '../../components/movies/MovieGrid';
 import { useAppContext } from '../../context/context';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import HamburgerMenu from '../../components/navigation/mobile/HamburgerMenu';
 
 const Movies = ({ movies, moviesByTag }) => {
-  const isTablet = useMediaQuery('(max-width: 1200px)');
+  const isTablet = useMediaQuery('(max-width: 800px)');
+  const pageContainerRef = React.useRef(null);
   const { featured, clip, ESDE, FFE, dev, pub } = moviesByTag;
   const { language, setDirectorFeatured } = useAppContext();
   const [isEN, setIsEN] = useState(language);
@@ -39,9 +41,12 @@ const Movies = ({ movies, moviesByTag }) => {
   return (
     <div
       className="page-container"
-      style={{ display: 'grid' /*  background: 'black'  */ }}
+      style={{ display: 'grid', backgroundColor: 'red' }}
+      ref={pageContainerRef}
     >
-      {!isTablet && (
+      {isTablet ? (
+        <HamburgerMenu />
+      ) : (
         <PageTitle
           position={'relative'}
           en="movies"
@@ -58,15 +63,25 @@ const Movies = ({ movies, moviesByTag }) => {
         animate={{ opacity: 1 }}
         className="movies"
       >
-        <MovieGrid title={isEN ? 'featured' : 'à la une'} movies={featured} />
-        <MovieGrid title={isEN ? 'clips' : 'clips'} movies={clip} />
         <MovieGrid
-          title={isEN ? 'school is over' : "en sortant de l'école"}
-          movies={ESDE}
+          pageContainerRef={pageContainerRef}
+          title={isEN ? 'featured' : 'à la une'}
+          section={featured}
         />
         <MovieGrid
+          pageContainerRef={pageContainerRef}
+          title={isEN ? 'clips' : 'clips'}
+          section={clip}
+        />
+        <MovieGrid
+          pageContainerRef={pageContainerRef}
+          title={isEN ? 'school is over' : "en sortant de l'école"}
+          section={ESDE}
+        />
+        <MovieGrid
+          pageContainerRef={pageContainerRef}
           title={isEN ? 'final year movies' : "films de fin d'études"}
-          movies={FFE}
+          section={FFE}
         />
       </motion.div>
     </div>
@@ -75,6 +90,7 @@ const Movies = ({ movies, moviesByTag }) => {
 
 export async function getStaticProps(context) {
   const query = groq`*[_type=='tag']{
+    color{rgb},
     name,
     "movies": *[_type== "movie" && references(^._id)]{
     
@@ -90,7 +106,10 @@ export async function getStaticProps(context) {
   const { data } = await sanityStaticProps({ context, query: query });
 
   const moviesByTag = data.reduce(
-    (obj, item) => ({ ...obj, [item.name]: item.movies }),
+    (obj, item) => ({
+      ...obj,
+      [item.name]: { movies: item.movies, ...item.color },
+    }),
     {}
   );
 

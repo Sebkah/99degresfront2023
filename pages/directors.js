@@ -23,10 +23,13 @@ import DirectorPanel from '../components/directors/DirectorPanel';
 
 import { useRouter } from 'next/router';
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import HamburgerMenu from '../components/navigation/mobile/HamburgerMenu';
 
 const Directors = ({ directors }) => {
   const isTablet = useMediaQuery('(max-width: 1200px)');
   const directorsGridRef = useRef();
+  const callBackArray = useRef([]);
+  const scrollPercentageRef = useRef(0);
   /* const isTablet = true; */
 
   const [indexFeatured, setIndexFeatured] = useState(null);
@@ -34,8 +37,10 @@ const Directors = ({ directors }) => {
   const router = useRouter();
 
   return (
-    <div className="page-container">
-      {!isTablet && (
+    <div className="page-container director-page">
+      {isTablet ? (
+        <HamburgerMenu />
+      ) : (
         <PageTitle
           position={'absolute'}
           en="directors"
@@ -58,6 +63,17 @@ const Directors = ({ directors }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        onScroll={(e) => {
+          console.log(e);
+          console.log(
+            (scrollPercentageRef.current =
+              e.target.scrollTop /
+              (e.target.scrollHeight - e.target.clientHeight))
+          );
+          callBackArray.current.forEach((callBack) => {
+            callBack();
+          });
+        }}
       >
         {directors.map((director, index) => {
           return isTablet ? (
@@ -68,6 +84,8 @@ const Directors = ({ directors }) => {
               setIndexFeatured={setIndexFeatured}
               indexFeatured={indexFeatured}
               index={index}
+              callBackArray={callBackArray}
+              scrollPercentageRef={scrollPercentageRef}
             ></DirectorPanelMobile>
           ) : (
             <DirectorPanel

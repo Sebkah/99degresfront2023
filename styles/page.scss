@@ -1,13 +1,17 @@
 .page-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   /*  display: grid; */
 
   overflow: hidden;
   grid-template-rows: min-content 1fr;
 
-  z-index: 20;
+  @media (max-width: 800px) {
+    grid-template-rows: 1fr;
+  }
+
+  /*   z-index: 20; */
   /*   border: pink 2px solid; */
 }
 
@@ -20,41 +24,20 @@
   font-family: Rubik Mono One;
   position: absolute;
 
-  /*   position: relative; */
   width: 100%;
   overflow: hidden;
   display: grid;
   font-size: 9rem;
   line-height: 10rem;
   grid-template-columns: min-content 1fr;
-  /*   border-bottom: 10px solid white; */
-  /*   margin-bottom: 10px; */
+
   z-index: 10000;
-  /*  background-color: transparent; */
-
-  @media (max-width: 600px) {
-    font-size: 25vw;
-    line-height: 20vw;
-  }
-
-  /*  display: none; */
 
   .page-title-title {
     overflow: visible;
-    /*     overflow-y: hidden; */
-
     width: 100%;
     white-space: nowrap;
     scrollbar-width: none;
-
-    /*   @media (max-width: 1200px) {
-      display: none;
-    } */
-
-    /*    &::-webkit-scrollbar {
-      width: 0px;
-      height: 0px;
-    } */
   }
 }
 

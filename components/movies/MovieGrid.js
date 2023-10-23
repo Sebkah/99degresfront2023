@@ -7,11 +7,22 @@ import { useRouter } from 'next/router';
 import { imageUrlBuilder } from '../../config/sanity';
 import Link from 'next/link';
 import { useInView } from 'framer-motion';
+import {
+  motion,
+  animate,
+  useMotionValue,
+  useMotionTemplate,
+} from 'framer-motion';
 
-const Movie = ({ title, mainImage, slug, gif }) => {
+const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
   const elementRef = React.useRef(null);
   const videoRef = React.useRef(null);
   const isInView = useInView(elementRef);
+  const grayscale = useMotionValue(1);
+  const brightness = useMotionValue(0.9);
+
+  const filter = useMotionTemplate`grayscale(${grayscale}) brightness(${brightness})`;
+
   return (
     <Link
       key={title}
@@ -25,25 +36,52 @@ const Movie = ({ title, mainImage, slug, gif }) => {
         videoRef.current && videoRef.current.pause();
       }} */
     >
-      <div className="movie-title" style={{ backgroundColor: 'black' }}>
+      <div className="movie-title" style={{ backgroundColor: colorStyle }}>
         {title}
       </div>
 
+      <motion.div
+        className="color-overlay"
+        style={{
+          opacity: 1,
+          backgroundColor: colorStyle,
+        }}
+        /*  transition={{ duration: 0.2 }} */
+        whileHover={{
+          opacity: 0,
+        }}
+        onHoverStart={() => {
+          animate(grayscale, 0);
+          animate(brightness, 1);
+        }}
+        onHoverEnd={() => {
+          animate(grayscale, 1);
+          animate(brightness, 0.9);
+        }}
+      ></motion.div>
+
       {gif ? (
         isInView && (
-          <video
+          <motion.video
             ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
             src={gif.secure_url}
+            style={{
+              /*   display: 'none', */
+              filter: filter,
+            }}
             className="movie-image"
-          ></video>
+          ></motion.video>
         )
       ) : (
         <Image
           className="movie-image"
+          style={{
+            filter: filter,
+          }}
           src={imageUrlBuilder.image(mainImage).width(600).url()}
           alt=""
           width={600}
@@ -54,14 +92,24 @@ const Movie = ({ title, mainImage, slug, gif }) => {
   );
 };
 
-const MovieGrid = ({ movies, title }) => {
+const MovieGrid = ({ section, title, pageContainerRef }) => {
+  const { movies, rgb } = section;
   //Adjusting some titles
   if (title == "en sortant de l'école" || title == 'school is over')
     title = 'esd';
   if (title == "films de fin d'études") title = "fin d'études";
 
+  let colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
+  /*   colorStyle = 'black'; */
+
   return (
-    <>
+    <div
+      className="movie-section"
+      style={{ backgroundColor: colorStyle }}
+      onMouseEnter={() => {
+        pageContainerRef.current.style.backgroundColor = colorStyle;
+      }}
+    >
       <h1 className="movie-section-title">{title}</h1>
       <div
         className={
@@ -71,10 +119,10 @@ const MovieGrid = ({ movies, title }) => {
         }
       >
         {movies.map((movie) => (
-          <Movie key={movie.title} {...movie} />
+          <Movie key={movie.title} {...movie} colorStyle={colorStyle} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

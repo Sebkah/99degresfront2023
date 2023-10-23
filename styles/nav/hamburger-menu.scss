@@ -1,0 +1,58 @@
+.hamburger-menu {
+  display: grid;
+  cursor: pointer;
+
+  mix-blend-mode: difference;
+  align-content: flex-start; //necessary for Safari
+
+  position: absolute;
+  right: 0;
+
+  height: min-content;
+  gap: 1.5vh;
+  padding-top: 2vh;
+  padding-right: 2vh;
+  z-index: 40;
+}
+
+.director-page {
+  .hamburger-menu {
+    gap: max(1.5vw, 5px);
+  }
+
+  .hamburger-menu-line {
+    width: max(10vw, 35px);
+    height: max(1.5vw, 5px);
+  }
+}
+
+.hamburger-menu-line {
+  display: block;
+  width: 10vh;
+  height: 1.5vh;
+
+  background-color: white;
+  /*  margin: 10px 0px; */
+  border-radius: 0.8vw;
+}
+
+.hamburger-menu-modal {
+  display: grid;
+
+  place-content: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  z-index: 39;
+
+  //this is needed to reactivate the menu in the hamburger menu
+  .menu {
+    position: relative;
+    display: grid;
+    mix-blend-mode: normal;
+    --scale: 2;
+    z-index: 39;
+  }
+}
