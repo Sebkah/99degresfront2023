@@ -29,12 +29,15 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <Head>
+        <title>Collectif 99°</title>
+      </Head>
       {isTablet && <HamburgerMenu />}
       <Title />
       <Menu>
         <MenuItemReal />
-        <MenuItem name={['movies', 'films']} />
-        <MenuItem name={['about', 'à propos']} />
+        <MenuItem name={['movies', 'films']} url="/movies" />
+        <MenuItem name={['about', 'à propos']} url="/about" />
       </Menu>
     </motion.header>
   );

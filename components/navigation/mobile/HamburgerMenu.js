@@ -75,9 +75,10 @@ const HamburgerMenu = ({ style }) => {
             onClick={() => setIsModalOpen(false)}
           >
             <Menu>
+              <MenuItem name={['home', 'accueil']} url="/" />
               <MenuItemReal />
-              <MenuItem name={['movies', 'films']} />
-              <MenuItem name={['about', 'à propos']} />
+              <MenuItem name={['movies', 'films']} url="/movies" />
+              <MenuItem name={['about', 'à propos']} url="/about" />
             </Menu>
           </motion.div>
         )}

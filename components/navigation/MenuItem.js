@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useFitText from 'use-fit-text';
 
-const MenuItem = ({ name }) => {
+const MenuItem = ({ name, url }) => {
   const router = useRouter();
   console.log(router.pathname);
 
@@ -20,10 +20,10 @@ const MenuItem = ({ name }) => {
         e.stopPropagation();
       }}
       className={menuClass}
-      href={'/' + name[0]}
+      href={url}
       style={
-        router.pathname == '/' + name[0]
-          ? { color: 'grey', pointerEvents: 'none', cursor: 'default' }
+        router.pathname == url
+          ? { color: 'grey', /* pointerEvents: 'none', */ cursor: 'default' }
           : null
       }
     >
