@@ -36,6 +36,9 @@ export default function Movie({ movie, directorsFiltered }) {
       className="page-container movie-page"
       style={{ display: 'grid' }}
     >
+      <Head>
+        <title>Collectif 99° - {title}</title>
+      </Head>
       {isTablet ? (
         <HamburgerMenu />
       ) : (

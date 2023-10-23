@@ -25,6 +25,8 @@ import { useRouter } from 'next/router';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import HamburgerMenu from '../components/navigation/mobile/HamburgerMenu';
 
+import Head from 'next/head';
+
 const Directors = ({ directors }) => {
   const isTablet = useMediaQuery('(max-width: 1200px)');
   const directorsGridRef = useRef();
@@ -38,6 +40,9 @@ const Directors = ({ directors }) => {
 
   return (
     <div className="page-container director-page">
+      <Head>
+        <title>Collectif 99° - Réalisateurs</title>
+      </Head>
       {isTablet ? (
         <HamburgerMenu />
       ) : (

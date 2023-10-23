@@ -19,7 +19,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
   const isTablet = useMediaQuery('(max-width: 800px)');
   const elementRef = React.useRef(null);
-  const videoRef = React.useRef(null);
+
   const isInView = useInView(elementRef);
   const grayscale = useMotionValue(1);
   const brightness = useMotionValue(0.9);
@@ -33,12 +33,6 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
       ref={elementRef}
       className="movie"
       href={`/movies/${slug.current}`}
-      /*   onMouseEnter={() => {
-        videoRef.current && videoRef.current.play();
-      }} */
-      /*  onMouseLeave={() => {
-        videoRef.current && videoRef.current.pause();
-      }} */
     >
       <div className="movie-title" style={{ backgroundColor: colorStyle }}>
         {title}
@@ -79,14 +73,12 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
       ) : (
         isInView && (
           <motion.video
-            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
             src={gif.secure_url}
             style={{
-              /*   display: 'none', */
               filter: filter,
             }}
             className="movie-image"

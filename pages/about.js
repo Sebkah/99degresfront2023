@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import HamburgerMenu from '../components/navigation/mobile/HamburgerMenu';
 
+import Head from 'next/head';
+
 const About = () => {
   const { language } = useAppContext();
   const router = useRouter();
@@ -11,6 +13,9 @@ const About = () => {
 
   return (
     <div className="page-container about-page">
+      <Head>
+        <title>Collectif 99° - About</title>
+      </Head>
       {isTablet ? (
         <HamburgerMenu />
       ) : (

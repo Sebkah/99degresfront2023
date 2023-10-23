@@ -23,6 +23,8 @@ import { useRouter } from 'next/router';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import HamburgerMenu from '../../components/navigation/mobile/HamburgerMenu';
 
+import Head from 'next/head';
+
 const Movies = ({ moviesByTag }) => {
   const isTablet = useMediaQuery('(max-width: 800px)');
   const pageContainerRef = React.useRef(null);
@@ -42,6 +44,9 @@ const Movies = ({ moviesByTag }) => {
       style={{ display: 'grid' }}
       ref={pageContainerRef}
     >
+      <Head>
+        <title>Collectif 99° - Films</title>
+      </Head>
       {isTablet ? (
         <HamburgerMenu />
       ) : (
@@ -80,6 +85,11 @@ const Movies = ({ moviesByTag }) => {
           pageContainerRef={pageContainerRef}
           title={isEN ? 'final year movies' : "films de fin d'études"}
           section={FFE}
+        />
+        <MovieGrid
+          pageContainerRef={pageContainerRef}
+          title={'pub'}
+          section={pub}
         />
       </motion.div>
     </div>
