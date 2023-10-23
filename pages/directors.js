@@ -64,12 +64,10 @@ const Directors = ({ directors }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onScroll={(e) => {
-          console.log(e);
-          console.log(
-            (scrollPercentageRef.current =
-              e.target.scrollTop /
-              (e.target.scrollHeight - e.target.clientHeight))
-          );
+          scrollPercentageRef.current =
+            e.target.scrollTop /
+            (e.target.scrollHeight - e.target.clientHeight);
+
           callBackArray.current.forEach((callBack) => {
             callBack();
           });

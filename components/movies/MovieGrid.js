@@ -100,7 +100,7 @@ const MovieGrid = ({ section, title, pageContainerRef }) => {
   if (title == "films de fin d'études") title = "fin d'études";
 
   let colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
-  /*   colorStyle = 'black'; */
+  colorStyle = 'black';
 
   return (
     <div

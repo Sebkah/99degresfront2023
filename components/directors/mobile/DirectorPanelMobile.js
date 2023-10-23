@@ -48,10 +48,12 @@ const DirectorPanelMobile = ({
   useEffect(() => {
     callBackArray.current.push(() => {
       //if the panel is close to the top set isOnTop to true
-      const scrollPercentageTop = (1 / 11) * index;
+      const scrollPercentageTop =
+        ref.current.offsetTop / ref.current.parentElement.scrollHeight;
+      console.log(ref.current.parentElement.scrollHeight);
       if (
         Math.abs(scrollPercentageRef.current - scrollPercentageTop) <
-        1 / 11
+        1 / 10
       ) {
         setIsOnTop(true);
       } else {
