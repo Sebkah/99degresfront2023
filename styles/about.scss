@@ -1,0 +1,23 @@
+.about-page {
+  display: grid;
+  grid-template-rows: 1fr;
+  background-color: #1f1c1c;
+
+  height: 100%;
+
+  overflow: auto;
+
+  .about-desc {
+    padding: 40px 3vw;
+    line-height: 1.8rem;
+    text-align: justify;
+    font-family: Atkinson Hyperlegible;
+    place-self: center;
+    width: min(500px, 98vw);
+    height: min-content;
+
+    p {
+      padding-bottom: 30px;
+    }
+  }
+}

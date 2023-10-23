@@ -13,54 +13,76 @@ import { groq } from 'next-sanity';
 import { sanityStaticProps, imageUrlBuilder } from '../../config/sanity';
 
 import { useAppContext } from '../../context/context';
+
+import Image from 'next/image';
+
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import HamburgerMenu from '../../components/navigation/mobile/HamburgerMenu';
+
 export default function Movie({ movie, directorsFiltered }) {
+  const isTablet = useMediaQuery('(max-width: 800px)');
   const ReactPlayer = dynamic(() => import('react-player/lazy'), {
     ssr: false,
   });
   const { directorFeatured, setDirectorFeatured, language } = useAppContext();
   const router = useRouter();
 
-  const { title, mainImage, directors, descFR } = movie;
-  let { videoUrl } = movie;
-  console.log(movie);
+  const { title, mainImage, directors, descFR, videoUrl, videoLink } = movie;
+
   const back = directorFeatured ? `/directors` : '/movies';
 
-  //This is a really dirty hack
-  /*  const isVideoESDE = videoUrl.includes('france');
-  if (isVideoESDE) {
-    videoUrl = null;
-  } */
-
   return (
-    <motion.div className="page-container" style={{ display: 'grid' }}>
-      <PageTitle
-        backFunction={() => {
-          console.log('pushed the back button');
-          if (directorFeatured != null) {
-            router.push('/directors');
-          } else {
-            router.push('/movies');
-          }
-        }}
-        position={'relative'}
-        en={title}
-        fr={title}
-      ></PageTitle>
-      <div className="movie-page">
-        <div className="movie-title">{title}</div>
-        <div
-          className="movie-video"
-          style={{
-            backgroundImage: `url(${imageUrlBuilder.image(mainImage)})`,
+    <motion.div
+      className="page-container movie-page"
+      style={{ display: 'grid' }}
+    >
+      {isTablet ? (
+        <HamburgerMenu />
+      ) : (
+        <PageTitle
+          backFunction={() => {
+            console.log('pushed the back button');
+            if (directorFeatured != null) {
+              router.push('/directors');
+            } else {
+              router.push('/movies');
+            }
           }}
-        >
-          {videoUrl && (
+          position={'relative'}
+          en={title}
+          fr={title}
+        ></PageTitle>
+      )}
+
+      <div className="movie-content">
+        {isTablet && <div className="movie-title">{title}</div>}
+        <div className="movie-video">
+          {videoUrl ? (
             <ReactPlayer
               controls={true}
               url={videoUrl}
               width="100%"
-              height={'100%'}
+              height="100%"
             ></ReactPlayer>
+          ) : (
+            <div className="image-container">
+              <a href={videoLink} target="_blank" rel="noreferrer">
+                <svg
+                  className="play-button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="white"
+                  viewBox="0 0 384 512"
+                >
+                  <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                </svg>
+              </a>
+              <Image
+                sizes="100vw"
+                fill={true}
+                alt="movie-image"
+                src={imageUrlBuilder.image(mainImage).url()}
+              />
+            </div>
           )}
         </div>
         <div className="movie-info">

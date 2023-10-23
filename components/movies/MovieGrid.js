@@ -106,6 +106,7 @@ const MovieGrid = ({ section, title, pageContainerRef }) => {
 
   let colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
   colorStyle = 'black';
+  colorStyle = '#1f1c1c';
 
   return (
     <div

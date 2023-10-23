@@ -95,6 +95,7 @@
     position: relative;
     width: auto;
     height: 25vh;
+    min-height: 170px;
 
     @media (max-width: 1000px) {
       height: 20vh;

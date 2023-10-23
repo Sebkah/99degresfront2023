@@ -39,7 +39,7 @@ const Movies = ({ moviesByTag }) => {
   return (
     <div
       className="page-container movies-page"
-      style={{ display: 'grid', backgroundColor: 'black' }}
+      style={{ display: 'grid' }}
       ref={pageContainerRef}
     >
       {isTablet ? (

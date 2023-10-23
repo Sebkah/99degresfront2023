@@ -5,8 +5,9 @@
   mix-blend-mode: difference;
   align-content: flex-start; //necessary for Safari
 
-  position: absolute;
+  position: fixed;
   right: 0;
+  top: 0;
 
   height: min-content;
   gap: 1.5vh;
@@ -16,7 +17,8 @@
 }
 
 .director-page,
-.movies-page {
+.movies-page,
+.movie-page {
   .hamburger-menu {
     gap: max(1.5vw, 5px);
   }

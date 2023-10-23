@@ -2,7 +2,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  /*  display: grid; */
 
   overflow: hidden;
   grid-template-rows: min-content 1fr;
@@ -22,7 +21,7 @@
 
 .page-title {
   font-family: Rubik Mono One;
-  position: absolute;
+  position: fixed;
 
   width: 100%;
   overflow: hidden;

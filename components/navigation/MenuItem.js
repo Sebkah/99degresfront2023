@@ -22,7 +22,7 @@ const MenuItem = ({ name }) => {
       className={menuClass}
       href={'/' + name[0]}
       style={
-        router.pathname.includes(name[0])
+        router.pathname == '/' + name[0]
           ? { color: 'grey', pointerEvents: 'none', cursor: 'default' }
           : null
       }
