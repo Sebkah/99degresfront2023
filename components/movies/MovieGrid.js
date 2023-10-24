@@ -48,6 +48,7 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
         /*  transition={{ duration: 0.2 }} */
         whileHover={{
           opacity: 0,
+          transition: { duration: 1 }
         }}
         onHoverStart={() => {
           animate(grayscale, 0);
@@ -60,16 +61,20 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
       ></motion.div>
 
       {!gif || isTablet ? (
-        <Image
-          className="movie-image"
-          style={{
-            filter: filter,
-          }}
-          src={imageUrlBuilder.image(mainImage).width(600).url()}
-          alt=""
-          width={600}
-          height={338}
-        ></Image>
+        <motion.div className="image-styling" style={{
+          filter
+        }}>
+
+          <Image
+            className="movie-image"
+            src={imageUrlBuilder.image(mainImage).width(600).url()}
+            alt=""
+            width={600}
+            height={338}
+
+
+          ></Image>
+        </motion.div>
       ) : (
         isInView && (
           <motion.video

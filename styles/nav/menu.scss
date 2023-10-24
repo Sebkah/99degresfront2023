@@ -6,7 +6,8 @@ header {
   height: 100%;
 
   overflow: hidden;
-  /*   z-index: 2; */
+    z-index: 2;
+  background-color: transparent;
 
   grid-template-columns: min-content 1fr;
 

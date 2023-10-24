@@ -88,15 +88,15 @@ const Layout = ({ children }) => {
         <div className="video">
           <Blackbars></Blackbars>
 
-          {/*     <video
+          <video
             className="fullscreen-video"
             autoPlay
             muted
             loop
             playsInline
             disablePictureInPicture
-            src="../video.mp4"
-          ></video> */}
+            src="video.mp4"
+          ></video>
         </div>
       )}
     </>
