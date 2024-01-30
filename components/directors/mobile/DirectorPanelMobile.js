@@ -14,7 +14,6 @@ const DirectorPanelMobile = ({
   indexFeatured,
   index,
   directorsGridRef,
-
   callBackArray,
   scrollPercentageRef,
 }) => {
@@ -46,11 +45,13 @@ const DirectorPanelMobile = ({
   const colorStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) `;
 
   useEffect(() => {
+    const scrollPercentageTop =
+      ref.current.offsetTop / ref.current.parentElement.scrollHeight;
+
     callBackArray.current.push(() => {
+      //this function is called by the parent component when the scroll event is triggered
       //if the panel is close to the top set isOnTop to true
-      const scrollPercentageTop =
-        ref.current.offsetTop / ref.current.parentElement.scrollHeight;
-      console.log(ref.current.parentElement.scrollHeight);
+      /*    console.log("scrolled"); */
       if (
         Math.abs(scrollPercentageRef.current - scrollPercentageTop) <
         1 / 10
@@ -91,6 +92,9 @@ const DirectorPanelMobile = ({
       style={{ backgroundColor: colorStyle }}
     >
       <Image
+        //set the next image to cover mode
+
+        /*   fill={true} */
         width={1200}
         height={210}
         src={imageUrlBuilder

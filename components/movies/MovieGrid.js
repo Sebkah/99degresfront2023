@@ -16,16 +16,27 @@ import {
 
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
-const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
+const Movie = ({ title, mainImage, slug, gif, colorStyle, color, textColor }) => {
+
   const isTablet = useMediaQuery('(max-width: 800px)');
   const elementRef = React.useRef(null);
 
   const isInView = useInView(elementRef);
+
+  //Motion template for the image overlay
   const grayscale = useMotionValue(1);
   const brightness = useMotionValue(0.9);
 
   let filter = useMotionTemplate`grayscale(${grayscale}) brightness(${brightness})`;
   if (isTablet) filter = 'none';
+
+
+  //Creating a motion value for the title color and the background color of the title
+  const textColorStyle = useMotionValue("#ffffff");
+  const backgroundTextColor = useMotionValue(colorStyle);
+
+  //Disabling videos on mobile
+  const disableMovieVideos = true;
 
   return (
     <Link
@@ -34,9 +45,9 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
       className="movie"
       href={`/movies/${slug.current}`}
     >
-      <div className="movie-title" style={{ backgroundColor: colorStyle }}>
+      <motion.div className="movie-title" style={{ backgroundColor: backgroundTextColor, color: textColorStyle }}>
         {title}
-      </div>
+      </motion.div>
 
       <motion.div
         className="color-overlay"
@@ -45,7 +56,7 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
           backgroundColor: colorStyle,
           display: isTablet ? 'none' : null,
         }}
-        /*  transition={{ duration: 0.2 }} */
+        //transition={{ duration: 0.2 }}
         whileHover={{
           opacity: 0,
           transition: { duration: 1 }
@@ -53,24 +64,35 @@ const Movie = ({ title, mainImage, slug, gif, colorStyle }) => {
         onHoverStart={() => {
           animate(grayscale, 0);
           animate(brightness, 1);
+
+          animate(textColorStyle, textColor);
+          animate(backgroundTextColor, color);
         }}
         onHoverEnd={() => {
           animate(grayscale, 1);
           animate(brightness, 0.9);
-        }}
-      ></motion.div>
 
-      {!gif || isTablet ? (
+          animate(textColorStyle, "#ffffff");
+          animate(backgroundTextColor, colorStyle);
+        }}
+      >
+      </motion.div>
+
+      {!gif || isTablet || disableMovieVideos ? (
         <motion.div className="image-styling" style={{
-          filter
+          filter, height: "100%"
         }}>
 
           <Image
             className="movie-image"
-            src={imageUrlBuilder.image(mainImage).width(600).url()}
+            src={imageUrlBuilder.image(mainImage).width(800).url()}
             alt=""
-            width={600}
-            height={338}
+            unoptimized={true}
+
+            /* width={600}
+            height={338} */
+            fill={true}
+            style={{ objectFit: "cover" }}
 
 
           ></Image>

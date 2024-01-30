@@ -100,12 +100,13 @@ export async function getStaticProps(context) {
   const query = groq`*[_type=='tag']{
     color{rgb},
     name,
-    "movies": *[_type== "movie" && references(^._id)]{
-    
+    "movies": *[_type== "movie" && references(^._id)]{    
       title, 
       mainImage, 
       slug,
-      priority,
+      priority,    
+      "color" : mainImage.asset->metadata.palette.vibrant.background, 
+      "textColor" : mainImage.asset->metadata.palette.vibrant.foreground,
       gif{secure_url}
     } | order(priority desc)
   }
