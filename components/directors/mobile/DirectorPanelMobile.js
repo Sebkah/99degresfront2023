@@ -109,8 +109,8 @@ const DirectorPanelMobile = ({
           isFeatured || isOnTop ? 'director-image active' : 'director-image'
         }
         style={isInView && { filter: 'grayScale(0) brightness(1)' }}
-        placeholder="blur"
-        blurDataURL={imageUrlBuilder.image(mainImage).width(12).height(3).url()}
+      /* placeholder="blur" */
+      /*        blurDataURL={imageUrlBuilder.image(mainImage).width(12).height(3).url()} */
       />
       <div className="name-container-centering">
         <Name surname={surname} name={forname} colorStyle={colorStyle} />

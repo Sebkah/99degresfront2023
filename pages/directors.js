@@ -49,7 +49,7 @@ const Directors = ({ directors }) => {
         <PageTitle
           position={'absolute'}
           en="directors"
-          fr="réalisateur.ices"
+          fr="créateur.ices"
           backFunction={() => {
             console.log('pushed the back button');
             if (indexFeatured == null) {
