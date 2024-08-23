@@ -27,7 +27,7 @@ export default function Movie({ movie, directorsFiltered }) {
   const { directorFeatured, setDirectorFeatured, language } = useAppContext();
   const router = useRouter();
 
-  const { title, mainImage, directors, descFR, videoUrl, videoLink } = movie;
+  const { title, mainImage, directors, descFR, descEN, videoUrl, videoLink } = movie;
 
   const back = directorFeatured ? `/directors` : '/movies';
 
@@ -37,7 +37,7 @@ export default function Movie({ movie, directorsFiltered }) {
       style={{ display: 'grid' }}
     >
       <Head>
-        <title>Collectif 99° - {title}</title>
+        <title>{`Collectif 99° - ${title}`}</title>
       </Head>
       {isTablet ? (
         <HamburgerMenu />
@@ -91,7 +91,7 @@ export default function Movie({ movie, directorsFiltered }) {
         <div className="movie-info">
           <div className="movie-description">
             <h1>Description</h1>
-            {descFR}
+            {language == "en" ? descEN : descFR}
           </div>
           <div className="directors">
             <h1>{language == 'en' ? 'A movie by' : 'Un film de'}</h1>
@@ -107,7 +107,7 @@ export default function Movie({ movie, directorsFiltered }) {
                     key={director.name}
                     className="director-link"
                   >
-                    {director.name}
+                    {director.name} -&gt;
                   </Link>
                 );
               })}
