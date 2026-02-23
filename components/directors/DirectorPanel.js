@@ -64,8 +64,8 @@ const DirectorPanel = ({
   const isFeatured = indexFeatured === index;
 
   /* if this panel is featured, swoosh it on the left, if not, base position */
-  let left = `calc(${index}*100vw/11*1)`;
-  let x = isFeatured ? `calc(${-index}*100vw/11)` : 0;
+  let left = `calc(${index}*100vw/10*1)`;
+  let x = isFeatured ? `calc(${-index}*100vw/10)` : 0;
 
   /* if there's a director featured, and this panel is on top, swoosh it to the right */
   if (indexFeatured != null) {

@@ -32,7 +32,7 @@ const About = () => {
       {language == 'en' ? (
         <div className="about-desc eng">
           <p>
-            99° is an artist-led collective and organisation founded by 11
+            99° is an artist-led collective and organisation founded by 10
             graduates of the Atelier Supérieur d’Animation in Paris. They met,
             worked together and formed a strong bond during their studies. The
             collective is their way of creating a structure allowing them to
@@ -51,7 +51,7 @@ const About = () => {
       ) : (
         <div className="about-desc fr">
           <p>
-            99° est un collectif d’artistes monté par 11 ancien.nes étudiant.es
+            99° est un collectif d’artistes monté par 10 ancien.nes étudiant.es
             de l’Atelier Supérieur d’Animation, à Paris. C’est durant leurs
             études qu’ils se rencontrent, travaillent ensemble, et qu’un lien
             fort se crée entre eux. Le collectif, c’est pour eux le moyen de
